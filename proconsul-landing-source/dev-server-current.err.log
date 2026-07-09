@@ -1,1 +1,469 @@
 Option 'host' has been specified multiple times. The value '127.0.0.1' will be used.
+X [ERROR] NG5002: Unexpected closing tag "aside". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:28:2:
+      28 │   </aside>
+         ╵   ~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:9:50:
+      9 │ ...-item" [class.is-active]="activeSection === 'home'" type="button...
+        ╵                              ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:9:99:
+      9 │ ...tiveSection === 'home'" type="button" (click)="setSection('home')">
+        ╵                                                   ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:14:50:
+      14 │ ...item" [class.is-active]="activeSection === 'personale'" type="b...
+         ╵                             ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:15:17:
+      15 │         (click)="setSection('personale')">
+         ╵                  ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:20:50:
+      20 │ ...item" [class.is-active]="activeSection === 'prenotazioni'" type...
+         ╵                             ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:21:17:
+      21 │         (click)="setSection('prenotazioni')">
+         ╵                  ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:31:7:
+      31 │   @if (activeSection === 'personale') {
+         ╵        ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:1:48:
+      1 │ ...l" [class.has-secondary]="activeSection === 'personale'" aria-la...
+        ╵                              ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:9:50:
+      9 │ ...-item" [class.is-active]="activeSection === 'home'" type="button...
+        ╵                              ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:9:99:
+      9 │ ...tiveSection === 'home'" type="button" (click)="setSection('home')">
+        ╵                                                   ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:14:50:
+      14 │ ...item" [class.is-active]="activeSection === 'personale'" type="b...
+         ╵                             ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:15:17:
+      15 │         (click)="setSection('personale')">
+         ╵                  ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:20:50:
+      20 │ ...item" [class.is-active]="activeSection === 'prenotazioni'" type...
+         ╵                             ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:21:17:
+      21 │         (click)="setSection('prenotazioni')">
+         ╵                  ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:31:7:
+      31 │   @if (activeSection === 'personale') {
+         ╵        ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:1:48:
+      1 │ ...l" [class.has-secondary]="activeSection === 'personale'" aria-la...
+        ╵                              ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:9:50:
+      9 │ ...-item" [class.is-active]="activeSection === 'home'" type="button...
+        ╵                              ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:9:99:
+      9 │ ...tiveSection === 'home'" type="button" (click)="setSection('home')">
+        ╵                                                   ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:14:50:
+      14 │ ...item" [class.is-active]="activeSection === 'personale'" type="b...
+         ╵                             ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:15:17:
+      15 │         (click)="setSection('personale')">
+         ╵                  ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:20:50:
+      20 │ ...item" [class.is-active]="activeSection === 'prenotazioni'" type...
+         ╵                             ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'setSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:21:17:
+      21 │         (click)="setSection('prenotazioni')">
+         ╵                  ~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'activeSection' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:31:7:
+      31 │   @if (activeSection === 'personale') {
+         ╵        ~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Unexpected closing tag "main". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:80:0:
+      80 │ </main>
+         ╵ ~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Unexpected closing tag "main". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:80:0:
+      80 │ </main>
+         ╵ ~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'sidebarExpanded' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:1:51:
+      1 │ <main class="home-shell" [class.sidebar-expanded]="sidebarExpanded"
+        ╵                                                    ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'sidebarExpanded' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:3:83:
+      3 │ ...abel="Navigazione principale" (mouseenter)="sidebarExpanded = true"
+        ╵                                                ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2339: Property 'sidebarExpanded' does not exist on type 'HomeComponent'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:4:18:
+      4 │     (mouseleave)="sidebarExpanded = false">
+        ╵                   ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Invalid ICU message. Missing '}'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:109:0:
+      109 │ 
+          ╵ ^
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Unexpected character "EOF" (Do you have an unescaped "{" in your template? Use "{{ '{' }}") to escape it.) [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:109:0:
+      109 │ 
+          ╵ ^
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Invalid ICU message. Missing '}'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:110:0:
+      110 │ 
+          ╵ ^
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Unexpected character "EOF" (Do you have an unescaped "{" in your template? Use "{{ '{' }}") to escape it.) [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:110:0:
+      110 │ 
+          ╵ ^
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] TS2367: This comparison appears to be unintentional because the types '"home" | "personale" | "prenotazioni"' and '"Prenotazioni"' have no overlap. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:58:11:
+      58 │       @if (activeSection === 'Prenotazioni') {
+         ╵            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Invalid ICU message. Missing '}'. [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:110:0:
+      110 │ 
+          ╵ ^
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+
+X [ERROR] NG5002: Unexpected character "EOF" (Do you have an unescaped "{" in your template? Use "{{ '{' }}") to escape it.) [plugin angular-compiler]
+
+    src/app/pages/home/home.component.html:110:0:
+      110 │ 
+          ╵ ^
+
+  Error occurs in the template of component HomeComponent.
+
+    src/app/pages/home/home.component.ts:7:15:
+      7 │   templateUrl: './home.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+

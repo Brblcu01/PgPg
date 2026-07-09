@@ -1,0 +1,63 @@
+<main class="landing-shell">
+  <section
+    class="sequence-stage"
+    [class.is-ready]="introComplete"
+    [class.is-video-playing]="videoStarted && !introComplete"
+    [class.is-flashing]="whiteTransition"
+    aria-label="Proconsul Group access">
+    <img class="final-image" [src]="backgroundSrc" alt="">
+
+    <video
+      #introVideo
+      class="intro-video"
+      [src]="videoSrc"
+      [poster]="backgroundSrc"
+      muted
+      playsinline
+      preload="auto"
+      (timeupdate)="onIntroTimeUpdate(introVideo)"
+      (ended)="onIntroEnded()"
+      (error)="onIntroEnded()">
+    </video>
+
+    <div class="white-transition" aria-hidden="true"></div>
+
+    <form
+      class="login-card"
+      [class.is-hidden]="videoStarted && !introComplete"
+      [style.transform]="loginTransform">
+      <div class="welcome-panel">
+        <div class="mini-logo">
+          <span>Proconsul Group</span>
+        </div>
+        <h1>Area<br>riservata</h1>
+        <p>Accedi al tuo spazio Proconsul</p>
+        <div class="dots" aria-hidden="true"></div>
+      </div>
+
+      <div class="form-panel">
+        <div class="form-heading">
+          <span>Login</span>
+          <h2>Bentornato</h2>
+        </div>
+
+        <label>
+          <span>Email aziendale</span>
+          <input type="email" name="email" placeholder="nome@azienda.com" autocomplete="email">
+        </label>
+
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" placeholder="Inserisci password" autocomplete="current-password">
+        </label>
+
+        
+
+        <div class="actions">
+          <button class="primary" type="button" (click)="startLoginVideo()">Accedi</button>
+        </div>
+
+      </div>
+    </form>
+  </section>
+</main>

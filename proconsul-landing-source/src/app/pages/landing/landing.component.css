@@ -1,0 +1,305 @@
+:host {
+  display: block;
+}
+
+.landing-shell {
+  min-height: 100svh;
+  overflow-x: clip;
+  background: #f7fbff;
+}
+
+.sequence-stage {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center end;
+  padding: clamp(24px, 5vw, 72px);
+  overflow: hidden;
+  isolation: isolate;
+  background: #eef5ff;
+}
+
+.final-image,
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.final-image {
+  z-index: 0;
+  opacity: 1;
+}
+
+.intro-video {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1100ms ease;
+}
+
+.sequence-stage.is-video-playing .intro-video {
+  opacity: 1;
+}
+
+.white-transition {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sequence-stage.is-flashing .white-transition {
+  opacity: 1;
+}
+
+.login-card {
+  position: relative;
+  z-index: 3;
+  width: min(690px, 90vw);
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.86fr);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 88%);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 90%);
+  box-shadow: 0 34px 82px rgb(26 71 137 / 22%), inset 0 1px 0 rgb(255 255 255 / 78%);
+  backdrop-filter: blur(18px);
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 680ms ease 260ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-card.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 0ms;
+}
+
+.welcome-panel {
+  position: relative;
+  min-height: 100%;
+  padding: clamp(28px, 4.2vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 12% 10%, transparent 0 54px, rgb(255 255 255 / 10%) 55px 57px, transparent 58px),
+    radial-gradient(circle at 88% 4%, transparent 0 84px, rgb(255 255 255 / 11%) 85px 90px, transparent 91px),
+    radial-gradient(circle at 12% 82%, rgb(255 255 255 / 11%) 0 74px, transparent 75px),
+    linear-gradient(145deg, #173f91 0%, #2f66d8 48%, #5d91f7 100%);
+}
+
+.mini-logo {
+  position: absolute;
+  top: 34px;
+  left: clamp(30px, 5vw, 56px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: rgb(255 255 255 / 92%);
+}
+
+.mark {
+  width: 22px;
+  height: 22px;
+  border: 5px solid #fff;
+  border-radius: 999px;
+  box-shadow: -11px 0 0 -3px rgb(255 255 255 / 86%);
+}
+
+.welcome-panel h1 {
+  position: relative;
+  margin: 0;
+  max-width: 280px;
+  font-size: clamp(2.55rem, 4.7vw, 3.85rem);
+  line-height: 0.92;
+}
+
+.welcome-panel p {
+  position: relative;
+  width: min(260px, 100%);
+  margin: 22px 0 0;
+  color: rgb(255 255 255 / 84%);
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  line-height: 1.5;
+}
+
+.dots {
+  position: absolute;
+  right: 34px;
+  bottom: 38px;
+  width: 104px;
+  height: 88px;
+  opacity: 0.56;
+  background-image: radial-gradient(#fff 1.6px, transparent 1.7px);
+  background-size: 18px 18px;
+}
+
+.form-panel {
+  padding: clamp(30px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  color: #1a3768;
+  background: linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(248 251 255 / 94%));
+}
+
+.form-heading {
+  margin-bottom: 10px;
+}
+
+.form-heading span {
+  display: block;
+  margin-bottom: 8px;
+  color: #4167b7;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.form-heading h2 {
+  margin: 0;
+  color: #12346d;
+  font-size: clamp(1.42rem, 1.9vw, 1.78rem);
+  line-height: 1.08;
+}
+
+.form-panel label {
+  display: grid;
+  gap: 5px;
+}
+
+.form-panel label span {
+  color: #315a9f;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.form-panel input[type="email"],
+.form-panel input[type="password"] {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 15px;
+  border: 1px solid #9cb2da;
+  border-radius: 6px;
+  color: #20395f;
+  outline: none;
+  background: rgb(255 255 255 / 88%);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+}
+
+.remember {
+  display: inline-flex !important;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 7px !important;
+  white-space: nowrap;
+}
+
+.remember input {
+  width: 13px;
+  height: 13px;
+  accent-color: #2457b2;
+}
+
+.remember span,
+.form-row a {
+  color: #526d99 !important;
+  font-size: 0.78rem !important;
+  font-weight: 650 !important;
+  text-decoration: none;
+}
+
+.actions {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.actions button {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid #2558b2;
+  border-radius: 6px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.actions .primary {
+  background: linear-gradient(135deg, #173f91, #2d66d8);
+  color: #fff;
+  box-shadow: 0 12px 26px rgb(36 88 178 / 24%);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background 220ms ease;
+}
+
+.actions .primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(25, 71, 151, 0.34);
+  background: linear-gradient(135deg, #12377f, #245bd0);
+}
+
+.actions .primary:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 22px rgb(36 88 178 / 24%);
+}
+
+.social-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 34px;
+  color: #42629b;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.social-row a {
+  color: #42629b;
+  text-decoration: none;
+  text-transform: none;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .sequence-stage {
+    padding: 42px 18px 64px;
+    place-items: center;
+  }
+
+  .login-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .welcome-panel {
+    min-height: 330px;
+  }
+}

@@ -1,16 +1,38 @@
-import { Routes } from '@angular/router';
+﻿import { Routes } from '@angular/router';
 
-// Base application routes. Adjust component paths as needed for your project.
-export const appRoutes: Routes = [
-  // default route redirects to /home
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
-
-  // home route (uses a standalone component or adjust to loadChildren/loadComponent per project)
+export const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./pages/landing/landing.component').then(
+        (m) => m.LandingComponent
+      )
+  },
   {
     path: 'home',
-    loadComponent: () => import('./home/sidebar-multi-demo.component').then(m => m.SidebarMultiDemoComponent),
+    loadComponent: () =>
+      import('./layout/app-shell/app-shell.component').then(
+        (m) => m.AppShellComponent
+      ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          )
+      },
+      {
+        path: 'prenotazioni',
+        loadComponent: () =>
+          import('./pages/prenotazioni/prenotazioni.component').then(
+            (m) => m.PrenotazioniComponent
+          )
+      }
+    ]
   },
-
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
-
-export default appRoutes;

@@ -4,23 +4,945 @@
 
 > Building...
 √ Building...
-Initial chunk files | Names         | Raw size
-main.js             | main          | 57.96 kB | 
-styles.css          | styles        | 19.47 kB | 
-polyfills.js        | polyfills     | 95 bytes | 
+Initial chunk files | Names             |  Raw size
+main.js             | main              |   2.64 kB | 
+styles.css          | styles            | 450 bytes | 
+polyfills.js        | polyfills         |  95 bytes | 
 
-                    | Initial total | 77.53 kB
+                    | Initial total     |   3.18 kB
 
-Application bundle generation complete. [2.181 seconds] - 2026-07-08T14:11:54.263Z
+Lazy chunk files    | Names             |  Raw size
+chunk-KPIBYFBV.js   | home-component    |  28.41 kB | 
+chunk-SEUVRKMR.js   | landing-component |  25.40 kB | 
+
+Application bundle generation complete. [2.749 seconds] - 2026-07-08T14:36:14.056Z
 
 Watch mode enabled. Watching for file changes...
 NOTE: Raw file sizes do not reflect development server per-request transformations.
+16:36:14 [vite] (client) Re-optimizing dependencies because lockfile has changed
   ➜  Local:   http://127.0.0.1:4200/
 > Changes detected. Rebuilding...
 √ Changes detected. Rebuilding...
-Initial chunk files | Names | Raw size
-main.js             | main  | 58.13 kB | 
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
 
-Application bundle generation complete. [0.552 seconds] - 2026-07-08T14:17:07.390Z
+Lazy chunk files    | Names          | Raw size
+chunk-JWSNT4SO.js   | home-component | 27.25 kB | 
+
+Application bundle generation complete. [0.396 seconds] - 2026-07-08T14:40:17.950Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-RKKGN32H.js   | home-component | 27.26 kB | 
+
+Application bundle generation complete. [0.181 seconds] - 2026-07-08T14:41:09.678Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-XBISFKLW.js   | home-component | 27.30 kB | 
+
+Application bundle generation complete. [0.203 seconds] - 2026-07-08T14:43:57.872Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-GDWNOGJ2.js   | home-component | 27.31 kB | 
+
+Application bundle generation complete. [0.166 seconds] - 2026-07-08T14:44:06.657Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names  | Raw size
+styles.css          | styles | 16.46 kB | 
+
+Application bundle generation complete. [0.050 seconds] - 2026-07-08T14:45:30.813Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-RKKGN32H.js   | home-component | 27.26 kB | 
+
+Application bundle generation complete. [0.200 seconds] - 2026-07-08T14:45:33.029Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-JLMPC7SN.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.135 seconds] - 2026-07-08T14:46:20.592Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-5SPCCZWU.js   | home-component | 27.25 kB | 
+
+Application bundle generation complete. [0.177 seconds] - 2026-07-08T14:46:31.460Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-FTRD3VD4.js   | home-component | 27.56 kB | 
+
+Application bundle generation complete. [0.145 seconds] - 2026-07-08T14:47:11.127Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-5SPCCZWU.js   | home-component | 27.25 kB | 
+
+Application bundle generation complete. [0.148 seconds] - 2026-07-08T14:47:23.184Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-PAPYKPTP.js   | home-component | 27.26 kB | 
+
+Application bundle generation complete. [0.106 seconds] - 2026-07-08T14:47:57.425Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-2KB4K75B.js   | home-component | 27.27 kB | 
+
+Application bundle generation complete. [0.157 seconds] - 2026-07-08T14:48:37.258Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-PLLXNZWK.js   | home-component | 27.25 kB | 
+
+Application bundle generation complete. [0.151 seconds] - 2026-07-08T14:49:06.589Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-7HQGR723.js   | home-component | 25.72 kB | 
+
+Application bundle generation complete. [0.202 seconds] - 2026-07-08T14:49:40.327Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.095 seconds] - 2026-07-08T14:50:05.188Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-7HQGR723.js   | home-component    | 25.72 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.147 seconds] - 2026-07-08T14:50:10.934Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-PJSA2ZVD.js   | home-component | 23.14 kB | 
+
+Application bundle generation complete. [0.120 seconds] - 2026-07-08T14:50:25.612Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-7HQGR723.js   | home-component | 25.72 kB | 
+
+Application bundle generation complete. [0.150 seconds] - 2026-07-08T14:50:47.385Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-BW7TXDPU.js   | home-component | 25.72 kB | 
+
+Application bundle generation complete. [0.152 seconds] - 2026-07-08T14:51:51.810Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-7ZTGXC7H.js   | home-component | 25.72 kB | 
+
+Application bundle generation complete. [0.134 seconds] - 2026-07-08T14:52:36.725Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.179 seconds] - 2026-07-08T14:57:52.909Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.178 seconds] - 2026-07-08T14:58:16.766Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.143 seconds] - 2026-07-08T14:58:51.330Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-FREOKXZZ.js   | home-component    | 27.40 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.177 seconds] - 2026-07-08T14:58:53.008Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-R5WDIVBS.js   | home-component | 27.34 kB | 
+
+Application bundle generation complete. [0.141 seconds] - 2026-07-08T14:59:56.908Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-P3UN5UWO.js   | home-component | 26.98 kB | 
+
+Application bundle generation complete. [0.140 seconds] - 2026-07-08T15:00:28.295Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-P3UN5UWO.js   | home-component    | 26.98 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.075 seconds] - 2026-07-08T15:00:41.849Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-P3UN5UWO.js   | home-component    | 26.98 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.109 seconds] - 2026-07-08T15:00:43.096Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-WLF4TRCR.js   | home-component | 26.93 kB | 
+
+Application bundle generation complete. [0.149 seconds] - 2026-07-08T15:02:16.779Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.157 seconds] - 2026-07-08T15:02:22.491Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-3L36TDLQ.js   | home-component | 27.22 kB | 
+
+Application bundle generation complete. [0.120 seconds] - 2026-07-08T15:02:38.094Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-3L36TDLQ.js   | home-component    | 27.22 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.104 seconds] - 2026-07-08T15:02:41.953Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-FREOKXZZ.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.178 seconds] - 2026-07-08T15:02:47.171Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-FREOKXZZ.js   | home-component    | 27.40 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.238 seconds] - 2026-07-08T15:03:12.358Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-R5WDIVBS.js   | home-component | 27.34 kB | 
+
+Application bundle generation complete. [0.087 seconds] - 2026-07-08T15:03:49.338Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-FREOKXZZ.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.103 seconds] - 2026-07-08T15:04:08.719Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-HFEPHIQ7.js   | home-component | 27.76 kB | 
+
+Application bundle generation complete. [0.131 seconds] - 2026-07-08T15:05:08.379Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-KQCTSEZH.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.115 seconds] - 2026-07-08T15:05:41.492Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-5OWDVYKU.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.107 seconds] - 2026-07-08T15:06:03.960Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-5OWDVYKU.js   | home-component    | 27.40 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.101 seconds] - 2026-07-08T15:06:10.785Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-KQCTSEZH.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.135 seconds] - 2026-07-08T15:06:14.154Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-UFK3YEYT.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.098 seconds] - 2026-07-08T15:06:18.770Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-TH3G37PX.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.109 seconds] - 2026-07-08T15:06:32.068Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-UFK3YEYT.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.108 seconds] - 2026-07-08T15:06:39.304Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-RNRWRCBA.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.136 seconds] - 2026-07-08T15:07:12.546Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-57FVLJZY.js   | home-component | 27.39 kB | 
+
+Application bundle generation complete. [0.105 seconds] - 2026-07-08T15:07:26.593Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-7MVJ3O4F.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.105 seconds] - 2026-07-08T15:07:38.728Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-3GRRASKS.js   | home-component | 27.61 kB | 
+
+Application bundle generation complete. [0.116 seconds] - 2026-07-08T15:08:49.148Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-M3DFCBOZ.js   | home-component | 27.47 kB | 
+
+Application bundle generation complete. [0.167 seconds] - 2026-07-08T15:09:11.370Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-M3DFCBOZ.js   | home-component    | 27.47 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.115 seconds] - 2026-07-08T15:09:29.860Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-7MVJ3O4F.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.134 seconds] - 2026-07-08T15:09:40.115Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-RNRWRCBA.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.131 seconds] - 2026-07-08T15:09:47.370Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-UFK3YEYT.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.111 seconds] - 2026-07-08T15:09:54.035Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-MYYJKG3D.js   | home-component | 28.13 kB | 
+
+Application bundle generation complete. [0.097 seconds] - 2026-07-08T15:11:13.251Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-UFK3YEYT.js   | home-component | 27.40 kB | 
+
+Application bundle generation complete. [0.127 seconds] - 2026-07-08T15:12:38.023Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.064 seconds] - 2026-07-08T15:13:36.942Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.077 seconds] - 2026-07-08T15:14:06.200Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+chunk-AKMD2DA7.js   | home-component    | 24.51 kB | 
+
+Application bundle generation complete. [0.111 seconds] - 2026-07-08T15:15:42.433Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.118 seconds] - 2026-07-08T15:18:23.370Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+chunk-TEYZ7E7G.js   | home-component    | 25.23 kB | 
+
+Application bundle generation complete. [0.172 seconds] - 2026-07-08T15:18:33.811Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-U3MERF3G.js   | home-component | 25.74 kB | 
+
+Application bundle generation complete. [0.112 seconds] - 2026-07-08T15:18:50.257Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-KGVBDBGV.js   | home-component | 25.83 kB | 
+
+Application bundle generation complete. [0.107 seconds] - 2026-07-08T15:19:11.977Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-KGVBDBGV.js   | home-component    | 25.83 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.149 seconds] - 2026-07-08T15:19:19.823Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-KGVBDBGV.js   | home-component    | 25.83 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.065 seconds] - 2026-07-08T15:19:20.761Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-KGVBDBGV.js   | home-component    | 25.83 kB | 
+chunk-SEUVRKMR.js   | landing-component | 25.40 kB | 
+
+Application bundle generation complete. [0.099 seconds] - 2026-07-08T15:19:21.690Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-LOOP24LQ.js   | home-component | 25.62 kB | 
+
+Application bundle generation complete. [0.104 seconds] - 2026-07-08T15:19:43.349Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-LBF7ALL2.js   | home-component | 25.83 kB | 
+
+Application bundle generation complete. [0.143 seconds] - 2026-07-08T15:20:34.629Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-B6MYHX2Y.js   | landing-component | 25.26 kB | 
+
+Application bundle generation complete. [0.127 seconds] - 2026-07-08T15:28:20.356Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-CWZ5P4QJ.js   | landing-component | 25.26 kB | 
+
+Application bundle generation complete. [0.177 seconds] - 2026-07-08T15:28:43.831Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-74GT2PSJ.js   | landing-component | 25.26 kB | 
+
+Application bundle generation complete. [0.156 seconds] - 2026-07-08T15:28:55.999Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-C4I4TEAG.js   | landing-component | 25.13 kB | 
+
+Application bundle generation complete. [0.114 seconds] - 2026-07-08T15:29:15.548Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-ZGWHRGJE.js   | landing-component | 24.98 kB | 
+
+Application bundle generation complete. [0.144 seconds] - 2026-07-08T15:29:22.931Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-XSZI4MCS.js   | landing-component | 24.73 kB | 
+
+Application bundle generation complete. [0.173 seconds] - 2026-07-08T15:29:39.669Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-QXAQHTYV.js   | landing-component | 23.98 kB | 
+
+Application bundle generation complete. [0.136 seconds] - 2026-07-08T15:29:54.168Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-OMEH64JJ.js   | landing-component | 23.98 kB | 
+
+Application bundle generation complete. [0.119 seconds] - 2026-07-08T15:30:25.594Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-7X2CGTWF.js   | home-component | 25.82 kB | 
+
+Application bundle generation complete. [0.158 seconds] - 2026-07-08T15:32:40.969Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.109 seconds] - 2026-07-08T15:33:57.603Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.079 seconds] - 2026-07-08T15:34:04.341Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.094 seconds] - 2026-07-08T15:34:39.853Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Application bundle generation failed. [0.130 seconds] - 2026-07-08T15:34:47.992Z
+
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-BUNGFSUV.js   | home-component    | 28.23 kB | 
+chunk-OMEH64JJ.js   | landing-component | 23.98 kB | 
+
+Application bundle generation complete. [0.196 seconds] - 2026-07-08T15:35:40.436Z
+
+Page reload sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+styles.css          | styles            | 16.46 kB | 
+main.js             | main              |  2.64 kB | 
+polyfills.js        | polyfills         | 95 bytes | 
+
+                    | Initial total     | 19.20 kB
+
+Lazy chunk files    | Names             | Raw size
+chunk-BUNGFSUV.js   | home-component    | 28.23 kB | 
+chunk-OMEH64JJ.js   | landing-component | 23.98 kB | 
+
+Application bundle generation complete. [0.210 seconds] - 2026-07-08T15:35:50.040Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names             | Raw size
+main.js             | main              |  2.64 kB | 
+
+Lazy chunk files    | Names             | Raw size
+chunk-K55YZLXQ.js   | landing-component | 23.51 kB | 
+
+Application bundle generation complete. [0.211 seconds] - 2026-07-08T15:41:48.067Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-CTMPDI7J.js   | home-component | 28.30 kB | 
+
+Application bundle generation complete. [0.154 seconds] - 2026-07-08T15:48:48.020Z
+
+Component update sent to client(s).
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names          | Raw size
+main.js             | main           |  2.64 kB | 
+
+Lazy chunk files    | Names          | Raw size
+chunk-AC4276JI.js   | home-component | 27.17 kB | 
+
+Application bundle generation complete. [0.125 seconds] - 2026-07-08T15:49:13.268Z
 
 Component update sent to client(s).
