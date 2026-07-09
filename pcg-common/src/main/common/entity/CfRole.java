@@ -33,7 +33,7 @@ public class CfRole extends BaseEntity {
     @Column(name = "Name", nullable = false, length = 200)
     private String name;
 
-    @Column(name = "CreationDate", nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "CreationDate", nullable = false)
     private LocalDateTime creationDate;
 
     @Column(name = "IsMarked")

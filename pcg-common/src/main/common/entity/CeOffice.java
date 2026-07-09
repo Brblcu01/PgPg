@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CE_Office", schema = "dbo")
+@Table(name = "CE_Office")
 @Getter
 @Setter
 @AttributeOverride(
@@ -30,12 +30,6 @@ public class CeOffice extends BaseEntity {
 
     @Column(name = "Description")
     private String description;
-
-    @Column(name = "ValidFrom")
-    private LocalDateTime validFrom;
-
-    @Column(name = "ValidTo")
-    private LocalDateTime validTo;
 
     @Column(name = "IsActive")
     private Boolean isActive;

@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CF_User", schema = "dbo")
+@Table(name = "CF_User")
 @AttributeOverride(
 		name = "id",
 		column = @Column(name = "IdUser")

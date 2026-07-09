@@ -14,42 +14,30 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CE_OrganizationalStructure")
+@Table(name = "CF_Profile")
 @AttributeOverride(
         name = "id",
-        column = @Column(name = "IdOrganizationalStructure")
+        column = @Column(name = "IdProfile")
 )
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CeOrganizationalStructure extends BaseEntity {
+public class CfProfile extends BaseEntity {
 
-    @Column(name = "Code")
+    @Column(name = "Code", nullable = false, length = 50)
     private String code;
 
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = false, length = 100)
     private String name;
 
     @Column(name = "Description")
     private String description;
-
-    @Column(name = "IdParentStructure_Fk")
-    private Long idParentStructureFk;
-
-    @Column(name = "WebsiteUrl")
-    private String websiteUrl;
-
-    @Column(name = "IsActive")
-    private Boolean isActive;
 
     @Column(name = "CreationDate")
     private LocalDateTime creationDate;
 
     @Column(name = "IsMarked")
     private Boolean isMarked;
-
-    @Column(name = "LastUpdateDate")
-    private LocalDateTime lastUpdateDate;
 }

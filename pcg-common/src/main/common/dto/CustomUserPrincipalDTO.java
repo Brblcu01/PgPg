@@ -18,5 +18,6 @@ public class CustomUserPrincipalDTO extends BaseDTO {
     private Long idOrganization;
     private Long idStructure;
     private Long idOffice;
+    private Long idProfile;
 
 }

@@ -12,7 +12,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CF_SystemConfig", schema = "dbo")
+@Table(name = "CF_SystemConfig")
 @NoArgsConstructor
 @Getter
 @Setter

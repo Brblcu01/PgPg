@@ -7,9 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnTransformer;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @AttributeOverride(
@@ -24,37 +23,30 @@ public class ExternalAuth extends BaseEntity {
     @Column(name = "Name")
     private String name;
 
-    @Column(name = "Env", columnDefinition = "nchar(1)")
+    @Column(name = "Env")
     private String env;
 
     @Column(name = "AuthMethod")
     private String authMethod;
 
-    @Column(name = "ClientID", columnDefinition = "varbinary")
-    @ColumnTransformer(read = "CONVERT(varchar(255), DecryptByPassPhrase('Pr0cGr!12%', ClientID))")
+    @Column(name = "ClientID")
     private String clientID;
 
-    @Column(name = "TenantID", columnDefinition = "varbinary")
-    @ColumnTransformer(read = "CONVERT(varchar(255), DecryptByPassPhrase('Pr0cGr!12%', TenantID))")
+    @Column(name = "TenantID")
     private String tenantId;
 
-    @Column(name = "ClientSecret", columnDefinition = "varbinary")
-    @ColumnTransformer(read = "CONVERT(varchar(255), DecryptByPassPhrase('Pr0cGr!12%', ClientSecret))")
+    @Column(name = "ClientSecret")
     private String clientSecret;
 
-    @Column(name = "RedirectURI", columnDefinition = "varbinary")
-    @ColumnTransformer(read = "CONVERT(varchar(255), DecryptByPassPhrase('Pr0cGr!12%', RedirectURI))")
+    @Column(name = "RedirectURI")
     private String redirectURI;
 
-    @Column(name = "RedirectURI_Local", columnDefinition = "varbinary")
-    @ColumnTransformer(read = "CONVERT(varchar(255), DecryptByPassPhrase('Pr0cGr!12%', RedirectURI_Local))")
+    @Column(name = "RedirectURI_Local")
     private String redirectURILocal;
 
-    @Column(name = "ClientRedirectURL", columnDefinition = "varbinary")
-    @ColumnTransformer(read = "CONVERT(varchar(255), DecryptByPassPhrase('Pr0cGr!12%', ClientRedirectURL))")
+    @Column(name = "ClientRedirectURL")
     private String clientRedirectUrl;
 
     @Column(name = "CreationDate")
-    private Date creationDate;
-
+    private LocalDateTime creationDate;
 }
