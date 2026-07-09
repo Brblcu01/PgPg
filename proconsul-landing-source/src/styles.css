@@ -1,5 +1,4 @@
-@import "tailwindcss";
-@import "tailwindcss-primeui";
+@import "primeicons/primeicons.css";
 
 :root {
   color-scheme: light;
@@ -27,6 +26,5 @@ button,
 input {
   font: inherit;
 }
-
 
 

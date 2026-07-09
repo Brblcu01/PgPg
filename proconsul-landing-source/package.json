@@ -15,10 +15,9 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@primeicons/angular": "^8.0.0-alpha.1",
     "@primeuix/themes": "^2.0.3",
     "primeicons": "^7.0.0",
-    "primeng": "^22.0.0-rc.2",
+    "primeng": "^21.1.9",
     "rxjs": "latest",
     "tslib": "latest",
     "zone.js": "latest"
@@ -28,9 +27,6 @@
     "@angular/cli": "^22.0.0",
     "@angular/compiler-cli": "^22.0.0",
     "@tailwindcss/postcss": "^4.3.2",
-    "postcss": "^8.5.16",
-    "tailwindcss": "^4.3.2",
-    "tailwindcss-primeui": "^0.6.1",
     "typescript": "latest"
   }
 }

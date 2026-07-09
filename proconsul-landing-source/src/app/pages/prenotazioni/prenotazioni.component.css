@@ -1,0 +1,554 @@
+:host {
+  display: block;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.booking-workspace {
+  min-width: 0;
+  max-width: 100%;
+  height: 100svh;
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr);
+  overflow: hidden;
+  color: #17315d;
+  background: #f6f9fd;
+}
+
+.workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 clamp(18px, 3vw, 34px);
+  border-bottom: 1px solid #d9e3f2;
+  background: rgb(255 255 255 / 72%);
+}
+
+.workspace-header div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.workspace-header strong {
+  color: #0f3572;
+  font-size: 1rem;
+}
+
+.workspace-header span {
+  color: #8191aa;
+  font-size: 0.82rem;
+}
+
+.logout-button {
+  min-height: 38px;
+  padding-inline: 1rem;
+  border-color: #b8c9e4;
+  color: #1d4d9b;
+  background: #fff;
+  font-weight: 800;
+}
+
+.workspace-content {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 18px;
+  padding: clamp(14px, 1.6vw, 24px);
+  overflow: hidden;
+}
+
+.metric-row {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.metric-row article {
+  min-width: 0;
+  min-height: 0;
+  height: clamp(88px, 13svh, 112px);
+  padding: 16px 18px;
+  border: 1px solid #dbe5f3;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgb(31 76 137 / 8%);
+}
+
+.metric-row span {
+  display: block;
+  margin-bottom: 14px;
+  color: #6a7f9e;
+  font-size: 0.82rem;
+  font-weight: 760;
+}
+
+.metric-row strong {
+  color: #123a79;
+  font-size: clamp(1.85rem, 3.4vw, 2.45rem);
+  line-height: 1;
+}
+
+.floor-card {
+  width: 100%;
+  max-width: 1360px;
+  min-height: 0;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #dbe5f3;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 20px 52px rgb(31 76 137 / 8%);
+}
+
+:host ::ng-deep .floor-card {
+  width: 100%;
+  max-width: 1360px;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+:host ::ng-deep .floor-card .p-card-body,
+:host ::ng-deep .floor-card .p-card-content {
+  height: 100%;
+  min-height: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0;
+}
+
+.floor-plan {
+  position: relative;
+  width: calc(100% - 36px);
+  height: calc(100% - 32px);
+  max-width: 100%;
+  margin: 16px auto;
+  overflow: hidden;
+  border: 1px solid #d8e3f2;
+  border-radius: 8px;
+  background:
+    linear-gradient(rgb(42 83 135 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(42 83 135 / 5%) 1px, transparent 1px),
+    #fbfcff;
+  background-size: 32px 32px;
+}
+
+.floor-zone {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: 0.5rem;
+  border: 2px solid #60718c;
+  border-radius: 5px;
+  color: #163a75;
+  background: rgb(248 251 255 / 94%);
+  box-shadow:
+    inset 0 0 26px rgb(20 48 87 / 5%),
+    0 4px 12px rgb(20 48 87 / 10%);
+  text-transform: uppercase;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.floor-zone .zone-title {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 10ch;
+  color: inherit;
+  font-size: clamp(0.76rem, 1.15vw, 0.95rem);
+  font-weight: 850;
+  line-height: 1.15;
+  text-align: center;
+  transition: top 180ms ease, opacity 180ms ease;
+}
+
+.floor-zone .zone-seats {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: calc(50% + 1.25rem);
+  transform: translateX(-50%);
+  color: #4f6687;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 180ms ease, top 180ms ease;
+}
+
+.floor-zone:hover,
+.floor-zone:focus-visible {
+  background: rgb(248 251 255 / 22%);
+  color: #0f3572;
+}
+
+.zone-reserved {
+  background: rgb(255 247 247 / 94%);
+}
+
+.floor-zone:hover .zone-title,
+.floor-zone:focus-visible .zone-title {
+  top: 36%;
+}
+
+.floor-zone:hover .zone-seats,
+.floor-zone:focus-visible .zone-seats {
+  top: calc(36% + 1.25rem);
+  opacity: 1;
+}
+
+.floor-zone:focus,
+.floor-zone:focus-visible {
+  outline: 0;
+  border-color: #60718c;
+  box-shadow:
+    inset 0 0 26px rgb(20 48 87 / 5%),
+    0 4px 12px rgb(20 48 87 / 10%);
+}
+
+.zone-disabled {
+  color: #64748b;
+  cursor: not-allowed;
+  background: rgb(241 245 249 / 78%);
+}
+
+.zone-office-2 {
+  top: 22%;
+  left: 5%;
+  width: 22%;
+  height: 21%;
+}
+
+.zone-office-1 {
+  top: 47%;
+  left: 5%;
+  width: 22%;
+  height: 20%;
+}
+
+.zone-server {
+  top: 71%;
+  left: 5%;
+  width: 22%;
+  height: 21%;
+}
+
+.zone-academy {
+  top: 6%;
+  left: 36%;
+  width: 32%;
+  height: 16%;
+  border-bottom-width: 0;
+  border-radius: 5px 5px 0 0;
+}
+
+.zone-office-3 {
+  top: 22%;
+  left: 36%;
+  width: 32%;
+  height: 21%;
+  border-radius: 0 0 5px 5px;
+}
+
+.zone-office-4 {
+  top: 70%;
+  left: 36%;
+  width: 34%;
+  height: 22%;
+}
+
+.zone-meeting {
+  top: 18%;
+  left: 80%;
+  width: 17%;
+  height: 40%;
+}
+
+.zone-support {
+  top: 67%;
+  left: 80%;
+  width: 17%;
+  height: 25%;
+}
+
+.zone-server .zone-title {
+  top: 50%;
+}
+
+.zone-office-4 .zone-title {
+  top: 51%;
+  left: 50%;
+}
+
+.zone-support .zone-title {
+  top: 26%;
+}
+
+.zone-support .zone-seats {
+  top: calc(26% + 1.25rem);
+}
+
+.desk,
+.meeting-table,
+.support-lounge {
+  position: absolute;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.floor-plan:has(.zone-office-2:is(:hover, :focus-visible)) .office2-desk,
+.floor-plan:has(.zone-office-1:is(:hover, :focus-visible)) .office1-desk,
+.floor-plan:has(.zone-office-3:is(:hover, :focus-visible)) .office3-desk,
+.floor-plan:has(.zone-office-4:is(:hover, :focus-visible)) .office4-desk,
+.floor-plan:has(.zone-meeting:is(:hover, :focus-visible)) .meeting-table,
+.floor-plan:has(.zone-support:is(:hover, :focus-visible)) .support-desk,
+.floor-plan:has(.zone-support:is(:hover, :focus-visible)) .support-lounge {
+  opacity: 1;
+}
+
+.desk {
+  width: 7.2%;
+  height: 5.8%;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #ffffff, #e9eef6);
+  border: 1px solid #d3dbe8;
+  box-shadow: 0 8px 16px rgb(31 76 137 / 14%);
+}
+
+.desk::before,
+.desk::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 24%;
+  height: 42%;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #c9d6e8, #91a7c2);
+  border: 1px solid #7f94af;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.desk::before {
+  top: -44%;
+}
+
+.desk::after {
+  bottom: -44%;
+}
+
+.desk span {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 28%;
+  height: 8%;
+  border-radius: 999px;
+  background: #5a6f8e;
+  transform: translate(-50%, -50%);
+}
+
+.desk-vertical {
+  width: 4.5%;
+  height: 10%;
+}
+
+.desk-vertical::before,
+.desk-vertical::after {
+  top: 50%;
+  width: 42%;
+  height: 26%;
+}
+
+.desk-vertical::before {
+  left: -24%;
+  transform: translateY(-50%);
+}
+
+.desk-vertical::after {
+  right: -24%;
+  left: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+.desk-horizontal {
+  width: 7%;
+  height: 6%;
+}
+
+.desk-facing-up::after {
+  display: none;
+}
+
+.desk-facing-down::before {
+  top: auto;
+  bottom: -44%;
+}
+
+.desk-facing-down::after {
+  display: none;
+}
+
+.office2-desk {
+  top: 31%;
+  left: 8.2%;
+}
+
+.office1-desk {
+  top: 55%;
+  left: 8.2%;
+}
+
+.desk-1 { top: 31%; left: 40%; }
+.desk-2 { top: 31%; left: 48.5%; }
+.desk-3 { top: 31%; left: 57%; }
+.desk-7 { top: 80.5%; left: 44%; }
+.desk-8 { top: 80.5%; left: 57%; }
+
+.support-desk {
+  top: 74.5%;
+  left: 84.6%;
+}
+
+.meeting-table {
+  top: 34%;
+  left: 84.75%;
+  width: 7%;
+  height: 24%;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #ffffff, #e8edf5);
+  border: 1px solid #d1d9e6;
+  box-shadow: 0 10px 16px rgb(31 76 137 / 18%);
+}
+
+.chair {
+  position: absolute;
+  width: 42%;
+  height: 15%;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #c9d6e8, #91a7c2);
+  border: 1px solid #7f94af;
+}
+
+.chair.top {
+  top: -16%;
+  left: 29%;
+}
+
+.chair.bottom {
+  bottom: -16%;
+  left: 29%;
+}
+
+.chair.left {
+  left: -46%;
+}
+
+.chair.right {
+  right: -46%;
+}
+
+.left-1,
+.right-1 {
+  top: 14%;
+}
+
+.left-2,
+.right-2 {
+  top: 43%;
+}
+
+.left-3,
+.right-3 {
+  top: 72%;
+}
+
+.support-lounge {
+  top: 84%;
+  left: 84%;
+  width: 8.8%;
+  height: 7%;
+}
+
+.lamp {
+  position: absolute;
+  top: -38%;
+  left: 38%;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: #d8dee8;
+  border: 1px solid #c5cedd;
+}
+
+.sofa {
+  position: absolute;
+  inset: 45% 0 0;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(180deg, #ffffff, #e8edf5);
+  border: 1px solid #d1d9e6;
+  box-shadow: 0 10px 16px rgb(31 76 137 / 14%);
+}
+
+.zone-dialog {
+  display: grid;
+  gap: 1rem;
+}
+
+.dialog-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dialog-row span {
+  flex: 0 0 auto;
+  color: #64748b;
+}
+
+.dialog-row strong {
+  color: #17315d;
+  text-align: right;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .booking-workspace {
+    min-height: auto;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .workspace-header {
+    min-height: 64px;
+  }
+
+  .metric-row {
+    grid-template-columns: 1fr;
+  }
+
+  .floor-card {
+    width: 100%;
+  }
+}

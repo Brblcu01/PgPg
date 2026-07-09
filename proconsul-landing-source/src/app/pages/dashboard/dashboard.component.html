@@ -1,0 +1,55 @@
+﻿<section class="workspace-panel" aria-label="Dashboard">
+  <header class="workspace-header">
+    <div>
+      <strong>Table Editor</strong>
+      <span>/ users</span>
+    </div>
+
+    <button type="button" (click)="goToLogin()">Esci</button>
+  </header>
+
+  <div class="workspace-content">
+    <section class="metric-row" aria-label="Metriche rapide">
+      <article>
+            <img src="assets/image.webp" alt="ProConsul">
+        <span>Le mie prenotazioni</span>
+        <strong>11</strong>
+      </article>
+      <article>
+        <span>Active sessions</span>
+        <strong>342</strong>
+      </article>
+      <article>
+        <span>API health</span>
+        <strong>99.9%</strong>
+      </article>
+    </section>
+
+    <section class="table-card" aria-label="Users table">
+      <div class="table-head">
+        <span>Name</span>
+        <span>Email</span>
+        <span>Status</span>
+        <span>Role</span>
+      </div>
+      <div class="table-row">
+        <span>Mario Rossi</span>
+        <span>m.rossi@azienda.com</span>
+        <span class="status-pill">Active</span>
+        <span>Admin</span>
+      </div>
+      <div class="table-row">
+        <span>Giulia Bianchi</span>
+        <span>g.bianchi@azienda.com</span>
+        <span class="status-pill muted">Pending</span>
+        <span>Editor</span>
+      </div>
+      <div class="table-row">
+        <span>Luca Verdi</span>
+        <span>l.verdi@azienda.com</span>
+        <span class="status-pill">Active</span>
+        <span>Viewer</span>
+      </div>
+    </section>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+<aside
+  class="app-sidebar"
+  aria-label="Navigazione principale"
+  (mouseenter)="openSidebar()"
+  (mouseleave)="closeSidebar()">
+  <div class="brand-block">
+    <img src="assets/image.webp" alt="ProConsul">
+    <span>Proconsul Group</span>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="Menu principale">
+    <button
+      pButton
+      type="button"
+      routerLink="/home"
+      routerLinkActive
+      #homeActive="routerLinkActive"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [class.is-active]="homeActive.isActive"
+      (click)="closeAfterNavigation($event)"
+      class="nav-item p-button-text">
+      <span class="pi pi-home"></span>
+      <strong>Home</strong>
+    </button>
+
+    <button
+      pButton
+      type="button"
+      routerLink="/home/prenotazioni"
+      routerLinkActive
+      #bookingActive="routerLinkActive"
+      [class.is-active]="bookingActive.isActive"
+      (click)="closeAfterNavigation($event)"
+      class="nav-item p-button-text">
+      <span class="pi pi-calendar"></span>
+      <strong>Prenotazioni</strong>
+    </button>
+  </nav>
+
+  <button pButton type="button" class="nav-item settings-link p-button-text">
+    <span class="pi pi-cog"></span>
+    <strong>Impostazioni</strong>
+  </button>
+</aside>

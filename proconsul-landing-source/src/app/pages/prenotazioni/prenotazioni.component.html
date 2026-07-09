@@ -1,0 +1,118 @@
+<section class="booking-workspace" aria-label="Zona prenotazioni">
+  <header class="workspace-header">
+    <div>
+      <strong>Table Editor</strong>
+      <span>/ users</span>
+    </div>
+
+    <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
+      Esci
+    </button>
+  </header>
+
+  <div class="workspace-content">
+    <section class="metric-row" aria-label="Metriche rapide">
+      <article *ngFor="let metric of metrics">
+        <span>{{ metric.label }}</span>
+        <strong>{{ metric.value }}</strong>
+      </article>
+    </section>
+
+    <p-card styleClass="floor-card">
+      <div class="floor-plan" aria-label="Mappa uffici">
+        <button
+          *ngFor="let zone of zones"
+          pButton
+          type="button"
+          class="floor-zone"
+          [ngClass]="[zone.cssClass, 'zone-' + zone.status]"
+          [pTooltip]="zone.description + ' - ' + getZoneStatusLabel(zone.status)"
+          tooltipPosition="top"
+          (click)="selectZone(zone)">
+          <span class="zone-title">{{ zone.label }}</span>
+          <span class="zone-seats" *ngIf="zone.seats">{{ zone.seats }} posti</span>
+        </button>
+
+        <div class="desk office2-desk desk-horizontal"><span></span></div>
+        <div class="desk office1-desk desk-horizontal"><span></span></div>
+
+        <div class="desk office3-desk desk-1"><span></span></div>
+        <div class="desk office3-desk desk-2"><span></span></div>
+        <div class="desk office3-desk desk-3"><span></span></div>
+
+        <div class="desk office4-desk desk-7"><span></span></div>
+        <div class="desk office4-desk desk-8"><span></span></div>
+
+        <div class="meeting-table" aria-hidden="true">
+          <span class="chair top"></span>
+          <span class="chair left left-1"></span>
+          <span class="chair left left-2"></span>
+          <span class="chair left left-3"></span>
+          <span class="chair right right-1"></span>
+          <span class="chair right right-2"></span>
+          <span class="chair right right-3"></span>
+          <span class="chair bottom"></span>
+        </div>
+
+        <div class="support-lounge" aria-hidden="true">
+          <span class="lamp"></span>
+          <span class="sofa"></span>
+        </div>
+
+        <div class="desk support-desk"><span></span></div>
+
+      </div>
+    </p-card>
+  </div>
+
+  <p-dialog
+    header="Dettaglio zona"
+    [(visible)]="showZoneDialog"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{ width: '420px' }">
+    <div *ngIf="selectedZone" class="zone-dialog">
+      <div class="dialog-row">
+        <span>Zona</span>
+        <strong>{{ selectedZone.label }}</strong>
+      </div>
+
+      <div class="dialog-row">
+        <span>Descrizione</span>
+        <strong>{{ selectedZone.description }}</strong>
+      </div>
+
+      <div class="dialog-row" *ngIf="selectedZone.seats">
+        <span>Posti</span>
+        <strong>{{ selectedZone.seats }}</strong>
+      </div>
+
+      <div class="dialog-row">
+        <span>Stato</span>
+        <p-tag
+          [value]="getZoneStatusLabel(selectedZone.status)"
+          [severity]="getZoneSeverity(selectedZone.status)" />
+      </div>
+
+      <div class="dialog-actions">
+        <button
+          pButton
+          type="button"
+          label="Libera"
+          severity="secondary"
+          [disabled]="selectedZone.status === 'free'"
+          (click)="freeSelectedZone()">
+        </button>
+
+        <button
+          pButton
+          type="button"
+          label="Prenota"
+          [disabled]="selectedZone.status === 'reserved'"
+          (click)="reserveSelectedZone()">
+        </button>
+      </div>
+    </div>
+  </p-dialog>
+</section>
