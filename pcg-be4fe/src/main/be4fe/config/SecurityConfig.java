@@ -89,7 +89,6 @@ public class SecurityConfig {
                 user.getUsername(),
                 user.getIdRoleFk(),
                 user.getOrganizationalStructure().getId(),
-                user.getOrganizationalStructure().getIdStructureTypeFk(),
                 idOffice,
                 user.getIdProfileFk()
         );
