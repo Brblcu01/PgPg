@@ -85,12 +85,13 @@ public class SecurityConfig {
         Long idOffice = user.getOffice() != null ? user.getOffice().getId() : null;
 
         CustomUserPrincipalDTO principal = new CustomUserPrincipalDTO(
-            user.getId(),
-            user.getUsername(),
-            user.getIdRoleFk(),
-            user.getOrganizationalStructure().getId(),
-            user.getOrganizationalStructure().getIdStructureTypeFk(),
-            idOffice
+                user.getId(),
+                user.getUsername(),
+                user.getIdRoleFk(),
+                user.getOrganizationalStructure().getId(),
+                user.getOrganizationalStructure().getIdStructureTypeFk(),
+                idOffice,
+                user.getIdProfileFk()
         );
 
         List<GrantedAuthority> authorities = List.of(
