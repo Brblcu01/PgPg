@@ -1,0 +1,26 @@
+
+> proconsul-landing@1.0.0 start
+> ng serve --host 127.0.0.1 --host 127.0.0.1 --port 4200
+
+> Building...
+√ Building...
+Initial chunk files | Names         | Raw size
+main.js             | main          | 57.96 kB | 
+styles.css          | styles        | 19.47 kB | 
+polyfills.js        | polyfills     | 95 bytes | 
+
+                    | Initial total | 77.53 kB
+
+Application bundle generation complete. [2.181 seconds] - 2026-07-08T14:11:54.263Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://127.0.0.1:4200/
+> Changes detected. Rebuilding...
+√ Changes detected. Rebuilding...
+Initial chunk files | Names | Raw size
+main.js             | main  | 58.13 kB | 
+
+Application bundle generation complete. [0.552 seconds] - 2026-07-08T14:17:07.390Z
+
+Component update sent to client(s).

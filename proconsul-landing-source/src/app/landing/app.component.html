@@ -1,0 +1,183 @@
+<main class="app-shell">
+  <div class="live-edit-marker">TEST LIVE</div>
+  @if (!isHome) {
+    <section
+      class="sequence-stage"
+      [class.is-ready]="introComplete"
+      [class.is-video-playing]="videoStarted && !introComplete"
+      [class.is-flashing]="whiteTransition"
+      aria-label="Proconsul Group access">
+      <img class="final-image" [src]="backgroundSrc" alt="">
+
+      <video
+        #introVideo
+        class="intro-video"
+        [src]="videoSrc"
+        [poster]="backgroundSrc"
+        muted
+        playsinline
+        preload="auto"
+        (timeupdate)="onIntroTimeUpdate(introVideo)"
+        (ended)="onIntroEnded()"
+        (error)="onIntroEnded()">
+      </video>
+
+      <div class="white-transition" aria-hidden="true"></div>
+
+      <form
+        class="login-card"
+        [class.is-hidden]="videoStarted && !introComplete"
+        [style.transform]="loginTransform">
+        <div class="welcome-panel">
+          <div class="mini-logo">
+            <span class="mark"></span>
+            <span>Proconsul Group</span>
+          </div>
+          <h1>Area<br>riservata</h1>
+          <p>Accedi al tuo spazio Proconsul Group.</p>
+          <div class="dots" aria-hidden="true"></div>
+        </div>
+
+        <div class="form-panel">
+          <div class="form-heading">
+            <span>Login</span>
+            <h2>Bentornato</h2>
+          </div>
+
+          <label>
+            <span>Email aziendale</span>
+            <input type="email" name="email" placeholder="nome@azienda.com" autocomplete="email">
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" placeholder="Inserisci password" autocomplete="current-password">
+          </label>
+
+          <div class="form-row">
+            <label class="remember">
+              <input type="checkbox" name="remember">
+              <span>Ricordami</span>
+            </label>
+            <a href="#login">Password dimenticata?</a>
+          </div>
+
+          <div class="actions">
+            <button class="primary" type="button" (click)="startLoginVideo()">Accedi</button>
+            <button class="secondary" type="button">Richiedi accesso</button>
+          </div>
+
+          <div class="social-row" aria-label="Social links">
+            <span>Seguici</span>
+            <a href="#login" aria-label="Facebook">f</a>
+            <a href="#login" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+      </form>
+    </section>
+  } @else {
+    <section class="home-shell" aria-label="Proconsul Group home">
+      <aside class="primary-sidebar" aria-label="Navigazione principale">
+        <div class="brand-block">
+          <span class="brand-avatar">A</span>
+          <span>Acme Inc</span>
+        </div>
+
+        <nav>
+          <button class="nav-item is-active" type="button"><span>⌂</span><strong>Home</strong></button>
+          <button class="nav-item" type="button"><span>▦</span><strong>Database</strong></button>
+          <button class="nav-item" type="button"><span>◈</span><strong>Authentication</strong></button>
+          <button class="nav-item" type="button"><span>▤</span><strong>Edge Functions</strong></button>
+          <button class="nav-item" type="button"><span>◎</span><strong>Storage</strong></button>
+          <button class="nav-item" type="button"><span>&lt;/&gt;</span><strong>SQL Editor</strong></button>
+        </nav>
+
+        <button class="nav-item settings-link" type="button"><span>⚙</span><strong>Settings</strong></button>
+      </aside>
+
+      <aside class="secondary-sidebar" aria-label="Impostazioni">
+        <h2>Settings</h2>
+
+        <section>
+          <p>Configuration</p>
+          <button class="sub-item is-active" type="button">General</button>
+          <button class="sub-item" type="button">Compute and Disk</button>
+          <button class="sub-item" type="button">Infrastructure</button>
+          <button class="sub-item" type="button">Integrations</button>
+          <button class="sub-item" type="button">API Keys</button>
+          <button class="sub-item" type="button">JWT Keys</button>
+          <button class="sub-item" type="button">Log Drains</button>
+          <button class="sub-item" type="button">Add-ons</button>
+        </section>
+
+        <section>
+          <p>Integrations</p>
+          <button class="sub-item with-meta" type="button">Data API<span>↗</span></button>
+          <button class="sub-item with-meta" type="button">Vault<span>BETA</span></button>
+        </section>
+
+        <section>
+          <p>Billing</p>
+          <button class="sub-item with-meta" type="button">Subscription<span>↗</span></button>
+          <button class="sub-item with-meta" type="button">Usage<span>↗</span></button>
+        </section>
+      </aside>
+
+      <section class="workspace-panel" aria-label="Table editor">
+        <header class="workspace-header">
+          <div>
+            <strong>Table Editor</strong>
+            <span>/ users</span>
+          </div>
+          <button type="button" (click)="goToLogin()">Esci</button>
+        </header>
+
+        <div class="workspace-content">
+          <section class="metric-row" aria-label="Metriche rapide">
+            <article>
+              <span>Total users</span>
+              <strong>12,482</strong>
+            </article>
+            <article>
+              <span>Active sessions</span>
+              <strong>342</strong>
+            </article>
+            <article>
+              <span>API health</span>
+              <strong>99.9%</strong>
+            </article>
+          </section>
+
+          <section class="table-card" aria-label="Users table">
+            <div class="table-head">
+              <span>Name</span>
+              <span>Email</span>
+              <span>Status</span>
+              <span>Role</span>
+            </div>
+            <div class="table-row">
+              <span>Mario Rossi</span>
+              <span>m.rossi@azienda.com</span>
+              <span class="status-pill">Active</span>
+              <span>Admin</span>
+            </div>
+            <div class="table-row">
+              <span>Giulia Bianchi</span>
+              <span>g.bianchi@azienda.com</span>
+              <span class="status-pill muted">Pending</span>
+              <span>Editor</span>
+            </div>
+            <div class="table-row">
+              <span>Luca Verdi</span>
+              <span>l.verdi@azienda.com</span>
+              <span class="status-pill">Active</span>
+              <span>Viewer</span>
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+  }
+
+  <div class="page-transition" [class.is-active]="whiteTransition && !isHome" aria-hidden="true"></div>
+</main>

@@ -1,0 +1,41 @@
+include:
+  - project: 'mitur/platform/ci-templates'
+    ref: main
+    file: '/backend-java-aca.yml'
+
+variables:
+  REGISTRY: registry.prosignal.it
+  ENABLE_DEPLOY: "true"
+
+  AZURE_CONTAINERAPP_NAME_TEST: "aca-mitur-sso-test-itn"
+  AZURE_RESOURCE_GROUP_TEST: "rg-mitur-test-itn"
+  AZURE_CONTAINER_ENV_TEST: "aca-mitur-test-itn"
+
+  PLATFORM_ENV: "test"
+  SPRING_PROFILE: "test"
+  CONTAINER_PORT: "8080"
+  REPLICAS: "1"
+  INGRESS_TYPE: "external"
+
+build:
+  stage: build
+  image: maven:3.9-eclipse-temurin-21
+  tags: ["build runner linux shared"]
+  script:
+    - rm -rf .ci-deps/common
+    - mkdir -p .ci-deps
+    - git clone --branch "$CI_COMMIT_REF_NAME" https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.proconsul-group.com/mitur/platform/backend/common.git .ci-deps/common
+    - cd .ci-deps/common
+    - mvn -B -DskipTests clean install
+    - cd $CI_PROJECT_DIR
+    - mvn -B -DskipTests clean package
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 hour
+  rules:
+    - if: '$ENABLE_DEPLOY == "true" && $CI_COMMIT_BRANCH == "develop"'
+      when: on_success
+    - if: '$ENABLE_DEPLOY == "true" && $CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - when: never

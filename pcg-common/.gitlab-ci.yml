@@ -1,0 +1,14 @@
+include:
+
+  - project: 'mitur/platform/ci-templates'
+    ref: main
+    file: '/backend-java-aca.yml'
+
+variables:
+  REGISTRY: registry.prosignal.it
+  # Per ora abilitiamo solo build+push
+  ENABLE_DEPLOY: "false"
+  # Azure TEST
+  AZURE_CONTAINERAPP_NAME_TEST: "aca-mitur-test-itn"
+  AZURE_RESOURCE_GROUP_TEST: "rg-mitur-test-itn"
+  AZURE_CONTAINER_ENV_TEST: "aca-mitur-test-itn"
