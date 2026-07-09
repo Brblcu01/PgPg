@@ -16,7 +16,6 @@ public class CustomUserPrincipalDTO extends BaseDTO {
     private String username;
     private Long idRole;
     private Long idOrganization;
-    private Long idStructure;
     private Long idOffice;
     private Long idProfile;
 
