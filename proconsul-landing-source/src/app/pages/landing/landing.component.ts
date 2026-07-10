@@ -70,7 +70,7 @@ export class LandingComponent {
       this.videoStarted = false;
       this.completingIntro = false;
       this.introVideo?.nativeElement.pause();
-      void this.router.navigateByUrl('/home');
+      void this.router.navigateByUrl('/prenotazioni');
     }, 120);
   }
 }

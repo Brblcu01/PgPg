@@ -2,14 +2,14 @@
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadComponent: () =>
       import('./pages/landing/landing.component').then(
         (m) => m.LandingComponent
       )
   },
   {
-    path: 'home',
+    path: '',
     loadComponent: () =>
       import('./layout/app-shell/app-shell.component').then(
         (m) => m.AppShellComponent
@@ -17,10 +17,8 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./pages/dashboard/dashboard.component').then(
-            (m) => m.DashboardComponent
-          )
+        redirectTo: 'prenotazioni',
+        pathMatch: 'full'
       },
       {
         path: 'prenotazioni',
@@ -28,11 +26,18 @@ export const routes: Routes = [
           import('./pages/prenotazioni/prenotazioni.component').then(
             (m) => m.PrenotazioniComponent
           )
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          )
       }
     ]
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'prenotazioni'
   }
 ];
