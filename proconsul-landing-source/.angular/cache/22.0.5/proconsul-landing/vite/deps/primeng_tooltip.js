@@ -9,12 +9,12 @@ import {
   PARENT_INSTANCE
 } from "./chunk-UO3GBAID.js";
 import {
-  BindModule
-} from "./chunk-W67MPAJW.js";
-import {
   BaseStyle
 } from "./chunk-PMR23EHV.js";
 import "./chunk-DLRGFBAL.js";
+import {
+  BindModule
+} from "./chunk-W67MPAJW.js";
 import {
   $,
   C,

@@ -3,7 +3,7 @@ import {
   TimesIcon,
   WindowMaximizeIcon,
   WindowMinimizeIcon
-} from "./chunk-BMMUCFJ3.js";
+} from "./chunk-L7WPQNGQ.js";
 import {
   zindexutils
 } from "./chunk-TNWZTUEL.js";
@@ -16,10 +16,6 @@ import {
   BaseComponent,
   PARENT_INSTANCE
 } from "./chunk-UO3GBAID.js";
-import {
-  Bind,
-  BindModule
-} from "./chunk-W67MPAJW.js";
 import {
   BaseStyle,
   P,
@@ -35,6 +31,10 @@ import {
   SharedModule,
   TranslationKeys
 } from "./chunk-DLRGFBAL.js";
+import {
+  Bind,
+  BindModule
+} from "./chunk-W67MPAJW.js";
 import {
   C,
   L,

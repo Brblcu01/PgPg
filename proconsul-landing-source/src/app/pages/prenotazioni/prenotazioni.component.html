@@ -1,8 +1,8 @@
 <section class="booking-workspace" aria-label="Zona prenotazioni">
+    
   <header class="workspace-header">
     <div>
-      <strong>Table Editor</strong>
-      <span>/ users</span>
+      <strong>Prenotazioni</strong>
     </div>
 
     <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
@@ -26,14 +26,13 @@
           type="button"
           class="floor-zone"
           [ngClass]="[zone.cssClass, 'zone-' + zone.status]"
-          [pTooltip]="zone.description + ' - ' + getZoneStatusLabel(zone.status)"
+          [pTooltip]="(zone.description || zone.label) + ' - ' + getZoneStatusLabel(zone.status)"
           tooltipPosition="top"
           (click)="selectZone(zone)">
           <span class="zone-title">{{ zone.label }}</span>
           <span class="zone-seats" *ngIf="zone.seats">{{ zone.seats }} posti</span>
         </button>
 
-        <div class="desk office2-desk desk-horizontal"><span></span></div>
         <div class="desk office1-desk desk-horizontal"><span></span></div>
 
         <div class="desk office3-desk desk-1"><span></span></div>
@@ -43,30 +42,13 @@
         <div class="desk office4-desk desk-7"><span></span></div>
         <div class="desk office4-desk desk-8"><span></span></div>
 
-        <div class="meeting-table" aria-hidden="true">
-          <span class="chair top"></span>
-          <span class="chair left left-1"></span>
-          <span class="chair left left-2"></span>
-          <span class="chair left left-3"></span>
-          <span class="chair right right-1"></span>
-          <span class="chair right right-2"></span>
-          <span class="chair right right-3"></span>
-          <span class="chair bottom"></span>
-        </div>
-
-        <div class="support-lounge" aria-hidden="true">
-          <span class="lamp"></span>
-          <span class="sofa"></span>
-        </div>
-
-        <div class="desk support-desk"><span></span></div>
-
       </div>
     </p-card>
   </div>
 
   <p-dialog
     header="Dettaglio zona"
+    styleClass="booking-dialog"
     [(visible)]="showZoneDialog"
     [modal]="true"
     [draggable]="false"
@@ -78,7 +60,7 @@
         <strong>{{ selectedZone.label }}</strong>
       </div>
 
-      <div class="dialog-row">
+      <div class="dialog-row" *ngIf="selectedZone.description">
         <span>Descrizione</span>
         <strong>{{ selectedZone.description }}</strong>
       </div>

@@ -6,16 +6,16 @@ import {
   PARENT_INSTANCE
 } from "./chunk-UO3GBAID.js";
 import {
-  Bind,
-  BindModule
-} from "./chunk-W67MPAJW.js";
-import {
   BaseStyle
 } from "./chunk-PMR23EHV.js";
 import {
   PrimeTemplate,
   SharedModule
 } from "./chunk-DLRGFBAL.js";
+import {
+  Bind,
+  BindModule
+} from "./chunk-W67MPAJW.js";
 import {
   C,
   Gt,
@@ -6384,4 +6384,4 @@ export {
   Button,
   ButtonModule
 };
-//# sourceMappingURL=chunk-BMMUCFJ3.js.map
+//# sourceMappingURL=chunk-L7WPQNGQ.js.map

@@ -22,7 +22,7 @@ export interface BookingZone {
   status: BookingZoneStatus;
   cssClass: string;
   seats?: number;
-  description: string;
+  description?: string;
 }
 
 @Component({
@@ -46,9 +46,9 @@ export class PrenotazioniComponent {
   showZoneDialog = false;
 
   readonly metrics: BookingMetric[] = [
-    { label: 'Total users', value: '12,482' },
-    { label: 'Active sessions', value: '342' },
-    { label: 'API health', value: '99.9%' }
+    { label: 'Posti Totali', value: '12' },
+    { label: 'Posti Liberi', value: '7' },
+    { label: 'Giorno', value: 'gg-MM-yyyy' }
   ];
 
   readonly zones: BookingZone[] = [
@@ -56,19 +56,16 @@ export class PrenotazioniComponent {
       id: 'office-2',
       label: 'Ufficio 2',
       type: 'office',
-      status: 'free',
-      cssClass: 'zone-office-2',
-      seats: 2,
-      description: 'Ufficio laterale con due postazioni.'
+      status: 'disabled',
+      cssClass: 'zone-office-2',    
     },
     {
       id: 'office-1',
       label: 'Ufficio 1',
       type: 'office',
-      status: 'reserved',
+      status: 'free',
       cssClass: 'zone-office-1',
-      seats: 2,
-      description: 'Ufficio laterale con due postazioni.'
+      seats: 2    
     },
     {
       id: 'server',
@@ -76,7 +73,6 @@ export class PrenotazioniComponent {
       type: 'service',
       status: 'disabled',
       cssClass: 'zone-server',
-      description: 'Area tecnica non prenotabile.'
     },
     {
       id: 'academy',
@@ -84,8 +80,6 @@ export class PrenotazioniComponent {
       type: 'training',
       status: 'free',
       cssClass: 'zone-academy',
-      seats: 12,
-      description: 'Aula academy per formazione e onboarding.'
     },
     {
       id: 'office-3',
@@ -93,8 +87,7 @@ export class PrenotazioniComponent {
       type: 'office',
       status: 'free',
       cssClass: 'zone-office-3',
-      seats: 6,
-      description: 'Open space centrale con sei postazioni.'
+      seats: 6   
     },
     {
       id: 'office-4',
@@ -102,31 +95,26 @@ export class PrenotazioniComponent {
       type: 'office',
       status: 'free',
       cssClass: 'zone-office-4',
-      seats: 4,
-      description: 'Area lavoro bassa con quattro postazioni.'
+      seats: 4   
     },
     {
       id: 'meeting',
       label: 'Sala riunioni',
       type: 'meeting',
       status: 'free',
-      cssClass: 'zone-meeting',
-      seats: 8,
-      description: 'Sala riunioni con tavolo centrale.'
+      cssClass: 'zone-meeting'
     },
     {
       id: 'support',
       label: 'Support',
       type: 'support',
-      status: 'free',
-      cssClass: 'zone-support',
-      seats: 4,
-      description: 'Area support e accoglienza.'
+      status: 'disabled',
+      cssClass: 'zone-support'
     }
   ];
 
   goToLogin(): void {
-    void this.router.navigateByUrl('/');
+    void this.router.navigateByUrl('/login');
   }
 
   selectZone(zone: BookingZone): void {
@@ -162,7 +150,7 @@ export class PrenotazioniComponent {
       free: 'Libero',
       reserved: 'Prenotato',
       selected: 'Selezionato',
-      disabled: 'Non disponibile'
+      disabled: 'Privato'
     };
 
     return labels[status];

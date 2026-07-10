@@ -219,9 +219,19 @@
 }
 
 .zone-disabled {
-  color: #64748b;
+  color: #8b6464;
   cursor: not-allowed;
   background: rgb(241 245 249 / 78%);
+}
+
+.floor-zone.zone-disabled:hover,
+.floor-zone.zone-disabled:focus-visible {
+  color: #991b1b;
+  border-color: #dc2626;
+  background: rgb(254 226 226 / 88%);
+  box-shadow:
+    inset 0 0 26px rgb(220 38 38 / 8%),
+    0 4px 12px rgb(153 27 27 / 16%);
 }
 
 .zone-office-2 {
@@ -293,16 +303,28 @@
 }
 
 .zone-support .zone-title {
-  top: 26%;
+  top: 50%;
 }
 
 .zone-support .zone-seats {
   top: calc(26% + 1.25rem);
 }
 
-.desk,
-.meeting-table,
-.support-lounge {
+.zone-meeting .zone-title {
+  max-width: 12ch;
+}
+
+.zone-meeting:hover .zone-title,
+.zone-meeting:focus-visible .zone-title {
+  top: 45%;
+}
+
+.zone-meeting:hover .zone-seats,
+.zone-meeting:focus-visible .zone-seats {
+  top: calc(20% + 2rem);
+}
+
+.desk {
   position: absolute;
   z-index: 4;
   opacity: 0;
@@ -310,13 +332,9 @@
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.floor-plan:has(.zone-office-2:is(:hover, :focus-visible)) .office2-desk,
 .floor-plan:has(.zone-office-1:is(:hover, :focus-visible)) .office1-desk,
 .floor-plan:has(.zone-office-3:is(:hover, :focus-visible)) .office3-desk,
-.floor-plan:has(.zone-office-4:is(:hover, :focus-visible)) .office4-desk,
-.floor-plan:has(.zone-meeting:is(:hover, :focus-visible)) .meeting-table,
-.floor-plan:has(.zone-support:is(:hover, :focus-visible)) .support-desk,
-.floor-plan:has(.zone-support:is(:hover, :focus-visible)) .support-lounge {
+.floor-plan:has(.zone-office-4:is(:hover, :focus-visible)) .office4-desk {
   opacity: 1;
 }
 
@@ -404,11 +422,6 @@
   display: none;
 }
 
-.office2-desk {
-  top: 31%;
-  left: 8.2%;
-}
-
 .office1-desk {
   top: 55%;
   left: 8.2%;
@@ -420,94 +433,91 @@
 .desk-7 { top: 80.5%; left: 44%; }
 .desk-8 { top: 80.5%; left: 57%; }
 
-.support-desk {
-  top: 74.5%;
-  left: 84.6%;
-}
-
-.meeting-table {
-  top: 34%;
-  left: 84.75%;
-  width: 7%;
-  height: 24%;
-  border-radius: 3px;
-  background: linear-gradient(180deg, #ffffff, #e8edf5);
-  border: 1px solid #d1d9e6;
-  box-shadow: 0 10px 16px rgb(31 76 137 / 18%);
-}
-
-.chair {
-  position: absolute;
-  width: 42%;
-  height: 15%;
-  border-radius: 4px;
-  background: linear-gradient(180deg, #c9d6e8, #91a7c2);
-  border: 1px solid #7f94af;
-}
-
-.chair.top {
-  top: -16%;
-  left: 29%;
-}
-
-.chair.bottom {
-  bottom: -16%;
-  left: 29%;
-}
-
-.chair.left {
-  left: -46%;
-}
-
-.chair.right {
-  right: -46%;
-}
-
-.left-1,
-.right-1 {
-  top: 14%;
-}
-
-.left-2,
-.right-2 {
-  top: 43%;
-}
-
-.left-3,
-.right-3 {
-  top: 72%;
-}
-
-.support-lounge {
-  top: 84%;
-  left: 84%;
-  width: 8.8%;
-  height: 7%;
-}
-
-.lamp {
-  position: absolute;
-  top: -38%;
-  left: 38%;
-  width: 1.9rem;
-  height: 1.9rem;
-  border-radius: 999px;
-  background: #d8dee8;
-  border: 1px solid #c5cedd;
-}
-
-.sofa {
-  position: absolute;
-  inset: 45% 0 0;
-  border-radius: 10px 10px 4px 4px;
-  background: linear-gradient(180deg, #ffffff, #e8edf5);
-  border: 1px solid #d1d9e6;
-  box-shadow: 0 10px 16px rgb(31 76 137 / 14%);
-}
-
 .zone-dialog {
   display: grid;
   gap: 1rem;
+}
+
+:host ::ng-deep .booking-dialog {
+  overflow: hidden;
+  border: 1px solid #dbe5f3;
+  border-radius: 8px;
+  color: #17315d;
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgb(31 76 137 / 16%);
+}
+
+:host ::ng-deep .booking-dialog .p-dialog-header {
+  padding: 1.25rem 1.5rem 0.75rem;
+  border-bottom: 1px solid #e5edf7;
+  color: #0f3572;
+  background: #ffffff;
+}
+
+:host ::ng-deep .booking-dialog .p-dialog-title {
+  color: #0f3572;
+  font-size: 1.05rem;
+  font-weight: 850;
+}
+
+:host ::ng-deep .booking-dialog .p-dialog-header-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #6a7f9e;
+  border-radius: 6px;
+}
+
+:host ::ng-deep .booking-dialog .p-dialog-header-icon:hover,
+:host ::ng-deep .booking-dialog .p-dialog-header-icon:focus-visible {
+  color: #17315d;
+  background: #eaf2ff;
+}
+
+:host ::ng-deep .booking-dialog .p-dialog-content {
+  padding: 1.25rem 1.5rem 1.4rem;
+  color: #17315d;
+  background: #ffffff;
+}
+
+:host ::ng-deep .booking-dialog .p-tag {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  font-weight: 800;
+}
+
+:host ::ng-deep .booking-dialog .p-button {
+  border-radius: 6px;
+  font-weight: 800;
+}
+
+:host ::ng-deep .booking-dialog .p-button:not(.p-button-secondary) {
+  border-color: #2fcf9a;
+  color: #062f24;
+  background: #35d49f;
+}
+
+:host ::ng-deep .booking-dialog .p-button:not(.p-button-secondary):hover {
+  border-color: #22b887;
+  background: #2fc794;
+}
+
+:host ::ng-deep .booking-dialog .p-button-secondary {
+  border-color: #d7e2f0;
+  color: #47617f;
+  background: #eef4fb;
+}
+
+:host ::ng-deep .booking-dialog .p-button-secondary:hover {
+  color: #17315d;
+  background: #e1ebf7;
+}
+
+:host ::ng-deep .booking-dialog .p-button:disabled {
+  border-color: #e3eaf4;
+  color: #94a3b8;
+  background: #f1f5f9;
+  opacity: 1;
 }
 
 .dialog-row {
