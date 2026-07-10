@@ -20,9 +20,9 @@ public class PrenotazioneConverter extends BaseGenericConverter<CeBooking, Preno
 
         return PrenotazioneDTO.builder()
                 .idPrenotazione(prenotazione.getId())
-                .idRisorsaPrenotabile(prenotazione.getIdRisorsaPrenotabileFk())
-                .codiceRisorsa(postazioneLavoro != null ? postazioneLavoro.getCodice() : null)
-                .nomeRisorsa(postazioneLavoro != null ? postazioneLavoro.getNome() : null)
+                .idWorkspace(prenotazione.getIdRisorsaPrenotabileFk())
+                .codiceWorkspace(postazioneLavoro != null ? postazioneLavoro.getCodice() : null)
+                .nomeWorkspace(postazioneLavoro != null ? postazioneLavoro.getNome() : null)
                 .idUtente(prenotazione.getIdUtenteFk())
                 .dataPrenotazione(prenotazione.getDataPrenotazione())
                 .stato(prenotazione.getStato())
@@ -35,7 +35,7 @@ public class PrenotazioneConverter extends BaseGenericConverter<CeBooking, Preno
     public CeBooking toEntity(PrenotazioneDTO dto) {
         CeBooking entity = new CeBooking();
         entity.setId(dto.getIdPrenotazione());
-        entity.setIdRisorsaPrenotabileFk(dto.getIdRisorsaPrenotabile());
+        entity.setIdRisorsaPrenotabileFk(dto.getIdWorkspace());
         entity.setIdUtenteFk(dto.getIdUtente());
         entity.setDataPrenotazione(dto.getDataPrenotazione());
         entity.setStato(dto.getStato());
@@ -45,7 +45,7 @@ public class PrenotazioneConverter extends BaseGenericConverter<CeBooking, Preno
 
     @Override
     public CeBooking updateEntity(PrenotazioneDTO source, CeBooking target) {
-        target.setIdRisorsaPrenotabileFk(source.getIdRisorsaPrenotabile());
+        target.setIdRisorsaPrenotabileFk(source.getIdWorkspace());
         target.setIdUtenteFk(source.getIdUtente());
         target.setDataPrenotazione(source.getDataPrenotazione());
         target.setStato(source.getStato());

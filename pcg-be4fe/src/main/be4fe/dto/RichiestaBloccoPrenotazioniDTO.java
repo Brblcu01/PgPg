@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RichiestaPrenotazioneDTO extends BaseDTO {
+public class RichiestaBloccoPrenotazioniDTO extends BaseDTO {
 
-    private Long idWorkspace;
-    private LocalDate dataPrenotazione;
-    private Long idWorkspaceSeat;
+    private LocalDate dataInizio;
+    private LocalDate dataFine;
+    private String motivo;
 }

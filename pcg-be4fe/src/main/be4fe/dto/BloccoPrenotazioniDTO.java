@@ -15,15 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PrenotazioneDTO extends BaseDTO {
+public class BloccoPrenotazioniDTO extends BaseDTO {
 
-    private Long idPrenotazione;
-    private Long idWorkspace;
-    private String codiceWorkspace;
-    private String nomeWorkspace;
-    private Long idUtente;
-    private LocalDate dataPrenotazione;
-    private String stato;
+    private Long idBlocco;
+    private LocalDate dataInizio;
+    private LocalDate dataFine;
+    private String motivo;
+    private Long idUtenteCreazione;
     private LocalDateTime dataCreazione;
-    private Boolean prenotazioneUtenteCorrente;
 }
