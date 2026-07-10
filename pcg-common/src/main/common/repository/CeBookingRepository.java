@@ -38,15 +38,24 @@ public interface CeBookingRepository extends BaseRepository<CeBooking> {
     );
 
     @Query("""
-        SELECT p FROM CeBooking p
-        JOIN FETCH p.postazioneLavoro r
-        WHERE p.dataPrenotazione = :data
-          AND p.stato = :stato
-          AND (p.marcata IS NULL OR p.marcata = false)
-        ORDER BY r.nome ASC, p.dataCreazione ASC
-    """)
+    SELECT p FROM CeBooking p
+    JOIN FETCH p.postazioneLavoro r
+    WHERE (
+        (:data IS NOT NULL AND p.dataPrenotazione = :data)
+        OR
+        (:data IS NULL
+            AND (:dataDa IS NULL OR p.dataPrenotazione >= :dataDa)
+            AND (:dataA IS NULL OR p.dataPrenotazione <= :dataA)
+        )
+    )
+      AND p.stato = :stato
+      AND (p.marcata IS NULL OR p.marcata = false)
+    ORDER BY p.dataPrenotazione DESC, r.nome ASC, p.dataCreazione ASC
+""")
     List<CeBooking> trovaPrenotazioniConfermate(
             @Param("data") LocalDate data,
+            @Param("dataDa") LocalDate dataDa,
+            @Param("dataA") LocalDate dataA,
             @Param("stato") String stato
     );
 
@@ -63,5 +72,39 @@ public interface CeBookingRepository extends BaseRepository<CeBooking> {
             @Param("data") LocalDate data
     );
 
+    @Query("""
+    SELECT p FROM CeBooking p
+    JOIN FETCH p.postazioneLavoro r
+    WHERE (
+        (:data IS NOT NULL AND p.dataPrenotazione = :data)
+        OR
+        (:data IS NULL
+            AND (:dataDa IS NULL OR p.dataPrenotazione >= :dataDa)
+            AND (:dataA IS NULL OR p.dataPrenotazione <= :dataA)
+        )
+    )
+      AND (p.marcata IS NULL OR p.marcata = false)
+    ORDER BY p.dataPrenotazione DESC, r.nome ASC, p.dataCreazione DESC
+""")
+    List<CeBooking> trovaPrenotazioniAdmin(
+            @Param("data") LocalDate data,
+            @Param("dataDa") LocalDate dataDa,
+            @Param("dataA") LocalDate dataA
+    );
+
     Optional<CeBooking> findByIdAndIdUtenteFk(Long id, Long idUtenteFk);
+
+    @Query("""
+    SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END
+    FROM CeBooking p
+    WHERE p.idWorkspaceSeatFk = :idPosto
+      AND p.dataPrenotazione = :data
+      AND p.stato = :stato
+      AND (p.marcata IS NULL OR p.marcata = false)
+""")
+    boolean existsPrenotazioneConfermataPosto(
+            @Param("idPosto") Long idPosto,
+            @Param("data") LocalDate data,
+            @Param("stato") String stato
+    );
 }

@@ -58,4 +58,11 @@ public class CeBooking extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdUser_Fk", referencedColumnName = "IdUser", insertable = false, updatable = false)
     private CfUser utente;
+
+    @Column(name = "IdWorkspaceSeat_Fk")
+    private Long idWorkspaceSeatFk;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IdWorkspaceSeat_Fk", referencedColumnName = "IdWorkspaceSeat", insertable = false, updatable = false)
+    private CeWorkspaceSeat posto;
 }
