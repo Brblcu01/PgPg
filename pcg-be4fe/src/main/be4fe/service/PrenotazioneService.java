@@ -18,7 +18,7 @@ public interface PrenotazioneService extends BaseRestService<PrenotazioneDTO> {
      * @param data data per cui verificare la disponibilita
      * @return lista delle workspace disponibili
      */
-    List<DisponibilitaPrenotazioneDTO> trovaDisponibili(CustomUserPrincipalDTO utenteCorrente, LocalDate data);
+    List<DisponibilitaPrenotazioneDTO> trovaWorkspaceDisponibili(CustomUserPrincipalDTO utenteCorrente, LocalDate data);
 
     /**
      * Restituisce il riepilogo dei posti di una workspace in una data specifica.
@@ -29,7 +29,7 @@ public interface PrenotazioneService extends BaseRestService<PrenotazioneDTO> {
      * @param data data per cui calcolare il riepilogo
      * @return riepilogo dei posti della workspace
      */
-    RiepilogoStanzaDTO riepilogoStanza(CustomUserPrincipalDTO utenteCorrente, Long id, LocalDate data);
+    RiepilogoStanzaDTO riepilogoWorkspace(CustomUserPrincipalDTO utenteCorrente, Long id, LocalDate data);
 
     /**
      * Restituisce le prenotazioni visibili all'utente corrente.
@@ -42,7 +42,7 @@ public interface PrenotazioneService extends BaseRestService<PrenotazioneDTO> {
      * @param dataA data finale dell'intervallo
      * @return lista delle prenotazioni visibili
      */
-    List<PrenotazioneDTO> trovaPrenotate(CustomUserPrincipalDTO utenteCorrente, LocalDate data, LocalDate dataDa, LocalDate dataA);
+    List<PrenotazioneDTO> trovaPrenotazioni(CustomUserPrincipalDTO utenteCorrente, LocalDate data, LocalDate dataDa, LocalDate dataA);
 
     /**
      * Restituisce le prenotazioni dell'utente corrente.

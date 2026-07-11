@@ -11,6 +11,7 @@ import common.entity.CeWorkspaceSeat;
 import common.model.MessageResponse;
 import common.repository.*;
 import common.utils.MessageResponseFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, PrenotazioneDTO, CeBookingRepository> implements PrenotazioneService {
 
     private static final String PROFILO_ADMIN = "ADMIN";
@@ -32,8 +34,9 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
     private final CfProfileRepository profileRepository;
     private final PrenotazioneConverter prenotazioneConverter;
     private final CeWorkspaceSeatRepository workspaceSeatRepository;
+    private final EmailService emailService;
 
-    public PrenotazioneServiceImpl(CeBookingRepository prenotazioneRepository, PrenotazioneConverter prenotazioneConverter, CeWorkspaceRepository risorsaRepository, CeBookableResourceProfileRepository profiloRisorsaRepository, CeBookingBlockRepository bloccoPrenotazioniRepository, CfProfileRepository profileRepository,CeWorkspaceSeatRepository workspaceSeatRepository) {
+    public PrenotazioneServiceImpl(CeBookingRepository prenotazioneRepository, PrenotazioneConverter prenotazioneConverter, CeWorkspaceRepository risorsaRepository, CeBookableResourceProfileRepository profiloRisorsaRepository, CeBookingBlockRepository bloccoPrenotazioniRepository, CfProfileRepository profileRepository,CeWorkspaceSeatRepository workspaceSeatRepository,EmailService emailService) {
         super(prenotazioneRepository, prenotazioneConverter);
         this.risorsaRepository = risorsaRepository;
         this.profiloRisorsaRepository = profiloRisorsaRepository;
@@ -41,10 +44,11 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
         this.profileRepository = profileRepository;
         this.prenotazioneConverter = prenotazioneConverter;
         this.workspaceSeatRepository=workspaceSeatRepository;
+        this.emailService=emailService;
     }
 
     @Override
-    public List<DisponibilitaPrenotazioneDTO> trovaDisponibili(CustomUserPrincipalDTO user, LocalDate data) {
+    public List<DisponibilitaPrenotazioneDTO> trovaWorkspaceDisponibili(CustomUserPrincipalDTO user, LocalDate data) {
 
         return risorsaRepository.trovaTuttePrenotabili().stream()
                 .filter(risorsa -> utentePuoPrenotare(user, risorsa.getId()))
@@ -55,7 +59,7 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
     }
 
     @Override
-    public RiepilogoStanzaDTO riepilogoStanza(CustomUserPrincipalDTO user, Long id, LocalDate data) {
+    public RiepilogoStanzaDTO riepilogoWorkspace(CustomUserPrincipalDTO user, Long id, LocalDate data) {
 
         CeWorkspace risorsa = risorsaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Stanza non trovata"));
@@ -73,7 +77,7 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
     }
 
     @Override
-    public List<PrenotazioneDTO> trovaPrenotate(CustomUserPrincipalDTO user, LocalDate data, LocalDate dataDa, LocalDate dataA) {
+    public List<PrenotazioneDTO> trovaPrenotazioni(CustomUserPrincipalDTO user, LocalDate data, LocalDate dataDa, LocalDate dataA) {
 
         if(utenteAdmin(user)){
 
@@ -185,6 +189,8 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prenotazione non trovata"));
 
             annullaPrenotazione(prenotazione);
+            emailService.inviaNotificaPrenotazioneAnnullata(prenotazione.getId());
+            log.info("admin");
 
         } else {
 

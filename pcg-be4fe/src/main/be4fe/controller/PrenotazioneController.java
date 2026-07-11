@@ -36,7 +36,7 @@ public class PrenotazioneController extends BaseController<PrenotazioneService, 
     })
     @GetMapping("/disponibili")
     public List<DisponibilitaPrenotazioneDTO> trovaDisponibili(@AuthenticationPrincipal CustomUserPrincipalDTO utenteCorrente, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
-        return service.trovaDisponibili(utenteCorrente, data);
+        return service.trovaWorkspaceDisponibili(utenteCorrente, data);
     }
 
     @Operation(
@@ -50,7 +50,7 @@ public class PrenotazioneController extends BaseController<PrenotazioneService, 
     })
     @GetMapping("/stanze/riepilogo/{id}")
     public RiepilogoStanzaDTO trovaRiepilogoStanza(@AuthenticationPrincipal CustomUserPrincipalDTO utenteCorrente, @PathVariable Long id, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
-        return service.riepilogoStanza(utenteCorrente, id, data);
+        return service.riepilogoWorkspace(utenteCorrente, id, data);
     }
 
     @Operation(
@@ -68,7 +68,7 @@ public class PrenotazioneController extends BaseController<PrenotazioneService, 
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataDa,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataA
     ) {
-        return service.trovaPrenotate(utenteCorrente, data, dataDa, dataA);
+        return service.trovaPrenotazioni(utenteCorrente, data, dataDa, dataA);
     }
 
     @Operation(
