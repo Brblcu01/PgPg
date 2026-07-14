@@ -1,0 +1,41 @@
+.callback-shell {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: #10213f;
+  background: #f7faff;
+}
+
+.callback-card {
+  width: min(420px, 100%);
+  padding: 28px;
+  border: 1px solid #dfe7f2;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 20px 52px rgb(28 63 105 / 10%);
+}
+
+.callback-card h1 {
+  margin: 0 0 10px;
+  color: #123a79;
+  font-size: 1.35rem;
+}
+
+.callback-card p {
+  margin: 0;
+  color: #53657e;
+  line-height: 1.45;
+}
+
+.callback-card button {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 22px;
+  border: 1px solid #2558b2;
+  border-radius: 6px;
+  color: #ffffff;
+  background: #245bd0;
+  font: inherit;
+  font-weight: 800;
+}

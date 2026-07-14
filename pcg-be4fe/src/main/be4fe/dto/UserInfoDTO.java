@@ -12,9 +12,9 @@ import lombok.*;
 @Schema(description = "Informazioni dell'utente autenticato (da SSO /userinfo)")
 public class UserInfoDTO extends BaseDTO {
 
+	private Long idUser;
 	private String email;
 	private String name;
-	private Long idUser;
 	private Long idRole;
 	private String roleName;
     private String accessToken;
@@ -26,15 +26,6 @@ public class UserInfoDTO extends BaseDTO {
 	private String authMethod;
 	private String roleCode;
 	private String descrizioneRuolo;
-	private RiferimentoDTO riferimenti;
-
-	@Data
-	@Builder
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class RiferimentoDTO {
-		private String name;
-		private String email;
-		private String role;
-	}
+	private Long idProfile;
+	private String profileCode;
 }

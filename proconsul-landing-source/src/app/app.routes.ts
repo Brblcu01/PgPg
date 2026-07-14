@@ -1,4 +1,6 @@
-﻿import { Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+
+import { authGuard } from './core/auth.guard';
 
 export const routes: Routes = [
   {
@@ -9,7 +11,15 @@ export const routes: Routes = [
       )
   },
   {
+    path: 'callback',
+    loadComponent: () =>
+      import('./pages/auth-callback/auth-callback.component').then(
+        (m) => m.AuthCallbackComponent
+      )
+  },
+  {
     path: '',
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./layout/app-shell/app-shell.component').then(
         (m) => m.AppShellComponent

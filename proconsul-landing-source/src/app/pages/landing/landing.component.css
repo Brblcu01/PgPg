@@ -249,6 +249,11 @@
   box-sizing: border-box;
 }
 
+.actions button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
 .actions .primary {
   background: linear-gradient(135deg, #173f91, #2d66d8);
   color: #fff;
@@ -268,6 +273,37 @@
 .actions .primary:active {
   transform: translateY(0);
   box-shadow: 0 10px 22px rgb(36 88 178 / 24%);
+}
+
+.microsoft-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.microsoft-mark {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+.microsoft-mark i:nth-child(1) { background: #f35325; }
+.microsoft-mark i:nth-child(2) { background: #81bc06; }
+.microsoft-mark i:nth-child(3) { background: #05a6f0; }
+.microsoft-mark i:nth-child(4) { background: #ffba08; }
+
+.login-error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #ffc6b8;
+  border-radius: 6px;
+  color: #9c2f17;
+  background: #fff1ee;
+  font-size: 0.78rem;
+  font-weight: 760;
 }
 
 .social-row {

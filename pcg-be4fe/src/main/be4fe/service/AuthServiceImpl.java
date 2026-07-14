@@ -161,44 +161,8 @@ public class AuthServiceImpl extends BaseGenericRestService<BaseEntity, BaseDTO,
 				syncUserFromGraph(user, tokenDTO);
 			}
 		}
-		CfRole role = cfRoleRepository.findById(user.getIdRoleFk())
-				.orElseThrow(() -> new EntityNotFoundException(
-						"Ruolo non trovato con id: " + user.getIdRoleFk()));
 
-		log.info("USERINFO: Accesso autorizzato per {} con ruolo {}", email, role.getName());
-
-		tokenDTO.setIdUser(user.getId());
-		tokenDTO.setIdRole(user.getIdRoleFk());
-		tokenDTO.setRoleName(role.getName());
-		tokenDTO.setRoleCode(user.getRole().getCode());
-		tokenDTO.setDescrizioneRuolo(user.getRole().getDescription());
-		if (user.getOrganizationalStructure() != null) {
-			tokenDTO.setIdOrganizationalStructure_Fk(user.getOrganizationalStructure().getId());
-			tokenDTO.setOrganizationalStructureName(user.getOrganizationalStructure().getName());
-		} else {
-			tokenDTO.setIdOrganizationalStructure_Fk(null);
-			tokenDTO.setOrganizationalStructureName(null);
-		}
-		if (user.getOffice() != null) {
-			tokenDTO.setIdOffice_Fk(user.getOffice().getId());
-			tokenDTO.setOfficeName(user.getOffice().getName());
-		} else {
-			tokenDTO.setIdOffice_Fk(null);
-			tokenDTO.setOfficeName(null);
-		}
-		userRepository.findDirettoreUfficio(tokenDTO.getIdOffice_Fk(), "DIR")
-				.ifPresent(dir -> {
-					tokenDTO.setRiferimenti(UserInfoDTO.RiferimentoDTO.builder()
-							.name(dir.getFirstName() + " " + dir.getLastName())
-							.email(dir.getEmail())
-							.role(dir.getRole().getCode())
-							.build());
-
-					log.info("USERINFO: Riferimento dirigente impostato: {}", dir.getEmail());
-				});
-
-//	    saveAuditLog(decodedJWT, user, tokenDTO);
-		return tokenDTO;
+		return buildUserInfo(tokenDTO,user);
 	}
 
 //	@Override
@@ -309,6 +273,37 @@ public class AuthServiceImpl extends BaseGenericRestService<BaseEntity, BaseDTO,
 					"Graph access token non ricevuto da SSO");
 		}
 		return graphToken;
+	}
+
+	private UserInfoDTO buildUserInfo(UserInfoDTO tokenDTO, CfUser user) {
+
+		CfRole role = cfRoleRepository.findById(user.getIdRoleFk())
+				.orElseThrow(() -> new EntityNotFoundException(
+						"Ruolo non trovato con id: " + user.getIdRoleFk()));
+
+		log.info("USERINFO: Accesso autorizzato per {} con ruolo {}", tokenDTO.getEmail(), role.getName());
+		tokenDTO.setIdUser(user.getId());
+		tokenDTO.setIdRole(user.getIdRoleFk());
+		tokenDTO.setRoleName(role.getName());
+		tokenDTO.setRoleCode(user.getRole().getCode());
+		tokenDTO.setDescrizioneRuolo(user.getRole().getDescription());
+		if (user.getOrganizationalStructure() != null) {
+			tokenDTO.setIdOrganizationalStructure_Fk(user.getOrganizationalStructure().getId());
+			tokenDTO.setOrganizationalStructureName(user.getOrganizationalStructure().getName());
+		} else {
+			tokenDTO.setIdOrganizationalStructure_Fk(null);
+			tokenDTO.setOrganizationalStructureName(null);
+		}
+		if (user.getOffice() != null) {
+			tokenDTO.setIdOffice_Fk(user.getOffice().getId());
+			tokenDTO.setOfficeName(user.getOffice().getName());
+		} else {
+			tokenDTO.setIdOffice_Fk(null);
+			tokenDTO.setOfficeName(null);
+		}
+		tokenDTO.setIdProfile(user.getIdProfileFk());
+		tokenDTO.setProfileCode(user.getProfile().getCode());
+		return tokenDTO;
 	}
 	
 	/**

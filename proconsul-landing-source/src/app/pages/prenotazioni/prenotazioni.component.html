@@ -1,50 +1,169 @@
 <section class="booking-workspace" aria-label="Zona prenotazioni">
-    
-  <header class="workspace-header">
-    <div>
-      <strong>Prenotazioni</strong>
-    </div>
+  <main class="workspace-main">
+    <header class="workspace-header">
+      <div>
+        <strong>Workspace</strong>
+      </div>
 
-    <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
-      Esci
-    </button>
-  </header>
-
-  <div class="workspace-content">
-    <section class="metric-row" aria-label="Metriche rapide">
-      <article *ngFor="let metric of metrics">
-        <span>{{ metric.label }}</span>
-        <strong>{{ metric.value }}</strong>
-      </article>
-    </section>
-
-    <p-card styleClass="floor-card">
-      <div class="floor-plan" aria-label="Mappa uffici">
-        <button
-          *ngFor="let zone of zones"
-          pButton
-          type="button"
-          class="floor-zone"
-          [ngClass]="[zone.cssClass, 'zone-' + zone.status]"
-          [pTooltip]="(zone.description || zone.label) + ' - ' + getZoneStatusLabel(zone.status)"
-          tooltipPosition="top"
-          (click)="selectZone(zone)">
-          <span class="zone-title">{{ zone.label }}</span>
-          <span class="zone-seats" *ngIf="zone.seats">{{ zone.seats }} posti</span>
+      <div class="header-actions">
+        <button type="button" class="user-button">
+          <span class="user-avatar">{{ currentUserInitials }}</span>
+          <span class="user-info">
+            <strong>{{ currentUserName }}</strong>
+            <small *ngIf="currentUserProfileCode">{{ currentUserProfileCode }}</small>
+          </span>
+          <i class="pi pi-chevron-down" aria-hidden="true"></i>
         </button>
 
-        <div class="desk office1-desk desk-horizontal"><span></span></div>
-
-        <div class="desk office3-desk desk-1"><span></span></div>
-        <div class="desk office3-desk desk-2"><span></span></div>
-        <div class="desk office3-desk desk-3"><span></span></div>
-
-        <div class="desk office4-desk desk-7"><span></span></div>
-        <div class="desk office4-desk desk-8"><span></span></div>
-
+        <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
+          Esci
+        </button>
       </div>
-    </p-card>
-  </div>
+    </header>
+
+    <div class="workspace-toolbar">
+      <button type="button" class="toolbar-button date-input-wrapper" (click)="openDatePicker(toolbarDateInput)">
+        <span>{{ selectedDateLabel }}</span>
+        <input
+          #toolbarDateInput
+          type="date"
+          [ngModel]="selectedDate"
+          (ngModelChange)="onDateChange($event)"
+          aria-label="Data prenotazione" />
+        <i class="pi pi-chevron-down" aria-hidden="true"></i>
+      </button>
+
+      <span class="toolbar-spacer"></span>
+    </div>
+
+    <div
+      *ngIf="feedbackMessage as message"
+      class="api-message feedback-toast"
+      [class.api-message-success]="message.type === 'success'"
+      [class.api-message-error]="message.type === 'error'"
+      role="alert">
+      {{ message.text }}
+    </div>
+
+    <div class="workspace-content">
+      <aside class="booking-panel" aria-label="Pannello prenotazione">
+        <section class="panel-card reservation-card">
+          <h2>La tua prenotazione</h2>
+
+          <ng-container *ngIf="firstBooking as booking; else noBooking">
+            <div class="reserved-seat">
+              <i class="pi pi-check" aria-hidden="true"></i>
+              <div>
+                <strong>{{ getBookingWorkspaceName(booking) }}</strong>
+                <span>{{ booking.stato || 'Confermata' }}</span>
+              </div>
+            </div>
+
+            <p><i class="pi pi-calendar" aria-hidden="true"></i> {{ selectedDateLabel }}</p>
+            <p><i class="pi pi-clock" aria-hidden="true"></i> Giornata intera</p>
+
+            <button
+              type="button"
+              class="cancel-button"
+              [disabled]="isSaving"
+              (click)="annullaPrenotazione(booking.idPrenotazione)">
+              Annulla prenotazione
+            </button>
+          </ng-container>
+
+          <ng-template #noBooking>
+            <div class="empty-reservation">
+              Nessuna prenotazione per questa data.
+            </div>
+          </ng-template>
+        </section>
+      </aside>
+
+      <section class="map-column" aria-label="Mappa ufficio">
+        <section class="metric-row" aria-label="Metriche rapide">
+          <article *ngFor="let metric of metrics">
+            <span>{{ metric.label }}</span>
+            <strong>{{ metric.value }}</strong>
+          </article>
+        </section>
+
+        <p-card styleClass="floor-card">
+          <div class="floor-plan" aria-label="Mappa uffici">
+            <div class="map-canvas">
+              <img
+                src="assets/workspace-map-clean.png"
+                alt="Mappa renderizzata dell'ufficio"
+                class="floor-plan-image" />
+
+              <button
+                *ngFor="let zone of zones"
+                type="button"
+                class="floor-zone"
+                [ngClass]="[zone.cssClass, 'zone-' + zone.status]"
+                [pTooltip]="(zone.description || zone.label) + ' - ' + getZoneStatusLabel(zone.status)"
+                tooltipPosition="top"
+                (click)="selectZone(zone)">
+                <span class="zone-title">{{ zone.label }}</span>
+              </button>
+
+              <button
+                *ngFor="let marker of mapSeatMarkers; trackBy: trackByMarker"
+                type="button"
+                class="seat-marker"
+                [ngClass]="[
+                  marker.cssClass,
+                  marker.occupied ? 'seat-booked' : 'seat-free',
+                  selectedSeat && selectedSeat.idWorkspaceSeat === marker.idWorkspaceSeat ? 'seat-selected' : '',
+                  marker.idWorkspaceSeat == null ? 'seat-unavailable' : ''
+                ]"
+                [disabled]="isSaving"
+                [attr.aria-label]="(marker.seatName || 'Posto ' + marker.label) + ' ' + (marker.occupied ? 'prenotato' : 'disponibile')"
+                [pTooltip]="marker.idWorkspaceSeat == null ? 'Posto non disponibile' : (marker.seatName || 'Posto ' + marker.label) + ' - ' + (marker.occupied ? 'Prenotato' : 'Disponibile')"
+                tooltipPosition="top"
+                (click)="selectMapSeat(marker)">
+                {{ marker.label }}
+              </button>
+
+              <div class="map-controls" aria-hidden="true">
+                <button type="button">+</button>
+                <button type="button">-</button>
+                <button type="button"><i class="pi pi-sliders-h"></i></button>
+              </div>
+            </div>
+
+            <div class="legend-bar" aria-label="Legenda">
+              <span><i class="legend-dot dot-free"></i> Disponibile</span>
+              <span><i class="legend-dot dot-booked"></i> Prenotato</span>
+            </div>
+          </div>
+        </p-card>
+
+        <section class="available-panel">
+          <header>
+            <h2>Posti disponibili ({{ availableSeats.length }})</h2>
+          </header>
+
+          <div *ngIf="availableSeats.length; else noAvailableSeats" class="seat-card-row">
+            <article
+              *ngFor="let seat of availableSeats; trackBy: trackBySeat"
+              class="seat-card"
+              [class.seat-card-selected]="seat.selected">
+              <strong>{{ seat.seat }}</strong>
+              <span>{{ seat.room }}</span>
+              <p><i class="pi pi-briefcase" aria-hidden="true"></i> {{ seat.type }}</p>
+              <button type="button" [disabled]="isSaving" (click)="prenotaPosto(seat)">Prenota</button>
+            </article>
+          </div>
+
+          <ng-template #noAvailableSeats>
+            <div class="empty-seats">
+              Nessun posto disponibile per questa data.
+            </div>
+          </ng-template>
+        </section>
+      </section>
+    </div>
+  </main>
 
   <p-dialog
     header="Dettaglio zona"
@@ -70,6 +189,15 @@
         <strong>{{ selectedZone.seats }}</strong>
       </div>
 
+      <div class="dialog-row" *ngIf="selectedSeat">
+        <span>Posto selezionato</span>
+        <strong>{{ selectedSeat.seat }}</strong>
+      </div>
+
+      <div class="dialog-hint" *ngIf="!selectedZone.exclusive && !selectedSeat">
+        Seleziona un pallino verde sulla mappa per scegliere il posto.
+      </div>
+
       <div class="dialog-row">
         <span>Stato</span>
         <p-tag
@@ -83,7 +211,7 @@
           type="button"
           label="Libera"
           severity="secondary"
-          [disabled]="selectedZone.status === 'free'"
+          [disabled]="isSaving"
           (click)="freeSelectedZone()">
         </button>
 
@@ -91,7 +219,7 @@
           pButton
           type="button"
           label="Prenota"
-          [disabled]="selectedZone.status === 'reserved'"
+          [disabled]="!canReserveSelectedZone"
           (click)="reserveSelectedZone()">
         </button>
       </div>

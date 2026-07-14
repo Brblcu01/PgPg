@@ -24,7 +24,7 @@
 
     <form
       class="login-card"
-      [class.is-hidden]="videoStarted && !introComplete"
+      [class.is-hidden]="loginFlowActive"
       [style.transform]="loginTransform">
       <div class="welcome-panel">
         <div class="mini-logo">
@@ -41,20 +41,19 @@
           <h2>Bentornato</h2>
         </div>
 
-        <label>
-          <span>Email aziendale</span>
-          <input type="email" name="email" placeholder="nome@azienda.com" autocomplete="email">
-        </label>
-
-        <label>
-          <span>Password</span>
-          <input type="password" name="password" placeholder="Inserisci password" autocomplete="current-password">
-        </label>
-
-        
+        <p *ngIf="loginError" class="login-error" role="alert">{{ loginError }}</p>
 
         <div class="actions">
-          <button class="primary" type="button" (click)="startLoginVideo()">Accedi</button>
+          <button
+            class="primary microsoft-button"
+            type="button"
+            [disabled]="loginLoading"
+            (click)="loginWithMicrosoft()">
+            <span class="microsoft-mark" aria-hidden="true">
+              <i></i><i></i><i></i><i></i>
+            </span>
+            Accedi con Microsoft
+          </button>
         </div>
 
       </div>

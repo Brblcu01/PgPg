@@ -1,0 +1,10 @@
+<main class="callback-shell">
+  <section class="callback-card">
+    <h1>{{ errorMessage ? 'Accesso non completato' : 'Accesso in corso' }}</h1>
+    <p>{{ errorMessage || 'Stiamo completando il login Microsoft...' }}</p>
+
+    <button *ngIf="errorMessage" type="button" (click)="goToLogin()">
+      Torna al login
+    </button>
+  </section>
+</main>

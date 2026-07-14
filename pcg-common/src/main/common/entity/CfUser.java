@@ -30,7 +30,6 @@ public class CfUser extends BaseEntity {
 	
 	@Column(name = "IdProfile_Fk")
 	private Long idProfileFk;
-	
 
 	@Column(name = "IdRegistry_Fk")
 	private Long idRegistryFk;
@@ -112,4 +111,13 @@ public class CfUser extends BaseEntity {
 			updatable = false
 	)
 	private CfRole role;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(
+			name = "IdProfile_Fk",
+			referencedColumnName = "IdProfile",
+			insertable = false,
+			updatable = false
+	)
+	private CfProfile profile;
 }
