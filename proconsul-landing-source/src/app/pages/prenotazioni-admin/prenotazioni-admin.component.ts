@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 
 import { AuthApiService, UserInfo } from '../../core/auth-api.service';
+import { AppDatePickerComponent } from '../../shared/date-picker/app-date-picker.component';
 import {
   MessageResponse,
   PrenotazioneDTO,
@@ -22,7 +23,7 @@ interface FeedbackMessage {
 @Component({
   selector: 'app-prenotazioni-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, DialogModule],
+  imports: [CommonModule, FormsModule, ButtonModule, DialogModule, AppDatePickerComponent],
   templateUrl: './prenotazioni-admin.component.html',
   styleUrl: './prenotazioni-admin.component.css'
 })

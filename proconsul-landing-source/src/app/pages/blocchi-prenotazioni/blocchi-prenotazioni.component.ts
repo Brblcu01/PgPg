@@ -7,6 +7,7 @@ import { finalize, timeout } from 'rxjs/operators';
 import { ButtonModule } from 'primeng/button';
 
 import { AuthApiService, UserInfo } from '../../core/auth-api.service';
+import { AppDatePickerComponent } from '../../shared/date-picker/app-date-picker.component';
 import {
   BloccoPrenotazioniDTO,
   MessageResponse,
@@ -21,7 +22,7 @@ interface FeedbackMessage {
 @Component({
   selector: 'app-blocchi-prenotazioni',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule],
+  imports: [CommonModule, FormsModule, ButtonModule, AppDatePickerComponent],
   templateUrl: './blocchi-prenotazioni.component.html',
   styleUrl: './blocchi-prenotazioni.component.css'
 })

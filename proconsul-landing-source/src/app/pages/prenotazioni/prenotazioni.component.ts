@@ -19,6 +19,7 @@ import {
   PrenotazioniApiService
 } from './prenotazioni-api.service';
 import { AuthApiService, UserInfo } from '../../core/auth-api.service';
+import { AppDatePickerComponent } from '../../shared/date-picker/app-date-picker.component';
 
 export type BookingZoneType = 'office' | 'meeting' | 'training' | 'support' | 'service';
 export type BookingZoneStatus = 'free' | 'reserved' | 'selected' | 'disabled';
@@ -74,7 +75,8 @@ export interface FeedbackMessage {
     CardModule,
     DialogModule,
     TagModule,
-    TooltipModule
+    TooltipModule,
+    AppDatePickerComponent
   ],
   templateUrl: './prenotazioni.component.html',
   styleUrl: './prenotazioni.component.css'
@@ -102,10 +104,17 @@ export class PrenotazioniComponent implements OnInit {
   isLoadingPosti = false;
   isSaving = false;
   mapZoom = 1;
+  mapOffsetX = 0;
+  mapOffsetY = 0;
+  isMapPanning = false;
+  isUserMenuOpen = false;
   readonly minMapZoom = 1;
   readonly maxMapZoom = 1.6;
   feedbackMessage: FeedbackMessage | null = null;
   private feedbackTimeoutId?: number;
+  private mapPanStartX = 0;
+  private mapPanStartY = 0;
+  private hasDraggedMap = false;
   currentUser: UserInfo | null = this.authApi.getCurrentUserInfo();
 
   metrics: BookingMetric[] = [
@@ -125,7 +134,7 @@ export class PrenotazioniComponent implements OnInit {
       status: 'free',
       cssClass: 'zone-academy',
       exclusive: true,
-      description: 'Sala academy prenotabile dai profili abilitati'
+      description: 'Sala academy'
     },
     {
       id: 'workspace-1',
@@ -135,7 +144,7 @@ export class PrenotazioniComponent implements OnInit {
       status: 'free',
       cssClass: 'zone-workspace-1',
       seats: 2,
-      description: 'Ufficio in basso a destra con due postazioni'
+      description: 'Ufficio 1'
     },
     {
       id: 'workspace-3',
@@ -145,7 +154,7 @@ export class PrenotazioniComponent implements OnInit {
       status: 'free',
       cssClass: 'zone-workspace-3',
       seats: 6,
-      description: 'Sala riunioni alla sinistra della sala d attesa'
+      description: 'Ufficio 2'
     },
     {
       id: 'workspace-4',
@@ -155,7 +164,7 @@ export class PrenotazioniComponent implements OnInit {
       status: 'free',
       cssClass: 'zone-workspace-4',
       seats: 4,
-      description: 'Open space sopra la sala d attesa'
+      description: 'Open space'
     },
     {
       id: 'meeting',
@@ -164,7 +173,7 @@ export class PrenotazioniComponent implements OnInit {
       status: 'reserved',
       cssClass: 'zone-meeting',
       exclusive: true,
-      description: 'Ufficio in alto a destra riservato a CTO/AU'
+      description: 'Sala Riunioni'
     }
   ];
 
@@ -197,8 +206,19 @@ export class PrenotazioniComponent implements OnInit {
     return this.currentUser?.name || this.currentUser?.email || 'Utente';
   }
 
+  get currentUserEmail(): string {
+    return this.currentUser?.email || '';
+  }
+
   get currentUserProfileCode(): string {
     return this.currentUser?.profileCode || '';
+  }
+
+  get isAdminUser(): boolean {
+    const profileCode = this.currentUser?.profileCode?.toUpperCase();
+    const roleCode = this.currentUser?.roleCode?.toUpperCase();
+
+    return profileCode === 'ADMIN' || roleCode === 'HR';
   }
 
   get currentUserProfileLabel(): string {
@@ -230,7 +250,7 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   get mapTransform(): string {
-    return `scale(${this.mapZoom})`;
+    return `translate3d(${this.mapOffsetX}px, ${this.mapOffsetY}px, 0) scale(${this.mapZoom})`;
   }
 
   ngOnInit(): void {
@@ -238,21 +258,23 @@ export class PrenotazioniComponent implements OnInit {
     this.refreshPrenotazioni(!this.feedbackMessage);
   }
 
-  goToLogin(): void {
-    this.authApi.clearSession();
-    void this.router.navigateByUrl('/login');
+  toggleUserMenu(): void {
+    this.isUserMenuOpen = !this.isUserMenuOpen;
   }
 
-  openDatePicker(input: HTMLInputElement): void {
-    input.focus();
+  closeUserMenu(): void {
+    this.isUserMenuOpen = false;
+  }
 
-    const dateInput = input as HTMLInputElement & { showPicker?: () => void };
-    if (dateInput.showPicker) {
-      dateInput.showPicker();
-      return;
-    }
+  goToRoute(path: string): void {
+    this.closeUserMenu();
+    void this.router.navigateByUrl(path);
+  }
 
-    input.click();
+  goToLogin(): void {
+    this.closeUserMenu();
+    this.authApi.clearSession();
+    void this.router.navigateByUrl('/login');
   }
 
   onDateChange(value: string): void {
@@ -268,10 +290,18 @@ export class PrenotazioniComponent implements OnInit {
 
   increaseMapZoom(): void {
     this.mapZoom = Math.min(this.maxMapZoom, this.roundMapZoom(this.mapZoom + 0.15));
+    this.clampMapOffset();
   }
 
   decreaseMapZoom(): void {
     this.mapZoom = Math.max(this.minMapZoom, this.roundMapZoom(this.mapZoom - 0.15));
+
+    if (this.mapZoom <= this.minMapZoom) {
+      this.resetMapPan();
+      return;
+    }
+
+    this.clampMapOffset();
   }
 
   refreshPrenotazioni(clearFeedback = true): void {
@@ -279,8 +309,89 @@ export class PrenotazioniComponent implements OnInit {
     this.caricaPostiWorkspace(clearFeedback);
   }
 
+  startMapPan(event: PointerEvent): void {
+    if (this.mapZoom <= this.minMapZoom || event.button !== 0) {
+      return;
+    }
+
+    const canvas = event.currentTarget as HTMLElement;
+    this.isMapPanning = true;
+    this.hasDraggedMap = false;
+    this.mapPanStartX = event.clientX - this.mapOffsetX;
+    this.mapPanStartY = event.clientY - this.mapOffsetY;
+    canvas.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  }
+
+  moveMapPan(event: PointerEvent): void {
+    if (!this.isMapPanning) {
+      return;
+    }
+
+    const nextX = event.clientX - this.mapPanStartX;
+    const nextY = event.clientY - this.mapPanStartY;
+
+    if (Math.abs(nextX - this.mapOffsetX) > 2 || Math.abs(nextY - this.mapOffsetY) > 2) {
+      this.hasDraggedMap = true;
+    }
+
+    this.setMapOffset(nextX, nextY, event.currentTarget as HTMLElement);
+    event.preventDefault();
+  }
+
+  endMapPan(event: PointerEvent): void {
+    if (!this.isMapPanning) {
+      return;
+    }
+
+    const canvas = event.currentTarget as HTMLElement;
+    this.isMapPanning = false;
+
+    if (canvas.hasPointerCapture(event.pointerId)) {
+      canvas.releasePointerCapture(event.pointerId);
+    }
+
+    window.setTimeout(() => this.hasDraggedMap = false, 0);
+  }
+
   private roundMapZoom(value: number): number {
     return Number(value.toFixed(2));
+  }
+
+  private setMapOffset(nextX: number, nextY: number, canvas: HTMLElement): void {
+    const bounds = this.getMapPanBounds(canvas);
+
+    this.mapOffsetX = Math.max(-bounds.maxX, Math.min(bounds.maxX, nextX));
+    this.mapOffsetY = Math.max(-bounds.maxY, Math.min(bounds.maxY, nextY));
+  }
+
+  private clampMapOffset(): void {
+    if (this.mapZoom <= this.minMapZoom) {
+      this.resetMapPan();
+      return;
+    }
+
+    const canvas = document.querySelector<HTMLElement>('.map-canvas');
+
+    if (canvas) {
+      this.setMapOffset(this.mapOffsetX, this.mapOffsetY, canvas);
+    }
+  }
+
+  private getMapPanBounds(canvas: HTMLElement): { maxX: number; maxY: number } {
+    const rect = canvas.getBoundingClientRect();
+    const overflowRatio = Math.max(0, this.mapZoom - 1);
+
+    return {
+      maxX: rect.width * overflowRatio / 2,
+      maxY: rect.height * overflowRatio / 2
+    };
+  }
+
+  private resetMapPan(): void {
+    this.mapOffsetX = 0;
+    this.mapOffsetY = 0;
+    this.isMapPanning = false;
   }
 
   loadPrenotazioni(clearFeedback = true): void {
@@ -311,6 +422,10 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   selectZone(zone: BookingZone): void {
+    if (this.hasDraggedMap) {
+      return;
+    }
+
     if (zone.status === 'disabled') {
       return;
     }
@@ -366,6 +481,10 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   selectMapSeat(marker: MapSeatMarker): void {
+    if (this.hasDraggedMap) {
+      return;
+    }
+
     if (marker.occupied) {
       this.showError('Questo posto risulta gia prenotato per la data selezionata.');
       return;

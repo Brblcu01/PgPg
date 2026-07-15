@@ -16,6 +16,8 @@ export class SidebarComponent {
   @HostBinding('class.is-expanded')
   protected isExpanded = false;
 
+  protected isMobileMenuOpen = false;
+
   private readonly authApi = inject(AuthApiService);
   private readonly currentUser = this.authApi.getCurrentUserInfo();
   private expansionLocked = false;
@@ -41,6 +43,15 @@ export class SidebarComponent {
   protected closeAfterNavigation(event: MouseEvent): void {
     this.isExpanded = false;
     this.expansionLocked = true;
+    this.isMobileMenuOpen = false;
     (event.currentTarget as HTMLElement).blur();
+  }
+
+  protected toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  protected closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
   }
 }

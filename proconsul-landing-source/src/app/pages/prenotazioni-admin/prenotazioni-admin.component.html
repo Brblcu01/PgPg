@@ -35,17 +35,17 @@
   <section class="filters-panel" aria-label="Filtri prenotazioni">
     <div class="filter-field">
       <span>Data</span>
-      <input type="date" [(ngModel)]="filtro.data" />
+      <app-date-picker [(value)]="filtro.data" [allowClear]="false" ariaLabel="Data prenotazioni"></app-date-picker>
     </div>
 
     <div class="filter-field">
       <span>Da</span>
-      <input type="date" [(ngModel)]="filtro.dataDa" />
+      <app-date-picker [(value)]="filtro.dataDa" ariaLabel="Data inizio periodo"></app-date-picker>
     </div>
 
     <div class="filter-field">
       <span>A</span>
-      <input type="date" [(ngModel)]="filtro.dataA" />
+      <app-date-picker [(value)]="filtro.dataA" ariaLabel="Data fine periodo"></app-date-picker>
     </div>
 
     <button pButton type="button" class="filter-button p-button-outlined" [disabled]="isLoading" (click)="caricaPrenotazioni(true)">

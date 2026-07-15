@@ -1,0 +1,17 @@
+<p-datepicker
+  [(ngModel)]="dateValue"
+  [inputId]="inputId"
+  [placeholder]="placeholder"
+  [showIcon]="true"
+  [showButtonBar]="allowClear"
+  [readonlyInput]="true"
+  [firstDayOfWeek]="1"
+  [attr.aria-label]="ariaLabel"
+  dateFormat="dd/mm/yy"
+  iconDisplay="input"
+  appendTo="body"
+  styleClass="app-date-picker-control"
+  inputStyleClass="app-date-picker-input"
+  panelStyleClass="app-date-picker-panel"
+  (ngModelChange)="onDateChange($event)">
+</p-datepicker>

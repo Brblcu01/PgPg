@@ -3,72 +3,76 @@
   aria-label="Navigazione principale"
   (mouseenter)="openSidebar()"
   (mouseleave)="closeSidebar()">
-  <div class="brand-block">
-    <img src="assets/image.webp" alt="ProConsul">
-    <span>Proconsul Group</span>
+  <div class="brand-row">
+    <div class="brand-block">
+      <img src="assets/image.webp" alt="ProConsul">
+      <span>Proconsul Group</span>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-label="Apri menu"
+      (click)="toggleMobileMenu()">
+      <span class="pi" [ngClass]="isMobileMenuOpen ? 'pi-times' : 'pi-bars'"></span>
+    </button>
   </div>
 
-  <nav class="sidebar-nav" aria-label="Menu principale">
-    <!-- 
-    <button
-      pButton
-      type="button"
-      routerLink="/home"
-      routerLinkActive
-      #homeActive="routerLinkActive"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [class.is-active]="homeActive.isActive"
-      (click)="closeAfterNavigation($event)"
-      class="nav-item p-button-text">
-      <span class="pi pi-home"></span>
-      <strong>Home</strong>
-    </button>
-    -->
-
-    <button
-      pButton
-      type="button"
-      routerLink="/prenotazioni"
-      routerLinkActive
-      #bookingActive="routerLinkActive"
-      [class.is-active]="bookingActive.isActive"
-      (click)="closeAfterNavigation($event)"
-      class="nav-item p-button-text">
-      <span class="pi pi-calendar"></span>
-      <strong>Prenotazioni</strong>
-    </button>
-
-    <button
-      *ngIf="isAdminUser"
-      pButton
-      type="button"
-      routerLink="/prenotazioni-admin"
-      routerLinkActive
-      #adminBookingsActive="routerLinkActive"
-      [class.is-active]="adminBookingsActive.isActive"
-      (click)="closeAfterNavigation($event)"
-      class="nav-item p-button-text">
-      <span class="pi pi-users"></span>
-      <strong>Gestione</strong>
-    </button>
-
-    <button
-      *ngIf="isAdminUser"
-      pButton
-      type="button"
-      routerLink="/blocchi-prenotazioni"
-      routerLinkActive
-      #blocksActive="routerLinkActive"
-      [class.is-active]="blocksActive.isActive"
-      (click)="closeAfterNavigation($event)"
-      class="nav-item p-button-text">
-      <span class="pi pi-ban"></span>
-      <strong>Blocchi</strong>
-    </button>
-  </nav>
-
-  <button pButton type="button" class="nav-item settings-link p-button-text">
-    <span class="pi pi-cog"></span>
-    <strong>Impostazioni</strong>
+  <button
+    type="button"
+    class="mobile-menu-backdrop"
+    aria-label="Chiudi menu"
+    (click)="closeMobileMenu()">
   </button>
+
+  <div class="sidebar-panel">
+    <nav class="sidebar-nav" aria-label="Menu principale">
+      <button
+        pButton
+        type="button"
+        routerLink="/prenotazioni"
+        routerLinkActive
+        #bookingActive="routerLinkActive"
+        [class.is-active]="bookingActive.isActive"
+        (click)="closeAfterNavigation($event)"
+        class="nav-item p-button-text">
+        <span class="pi pi-calendar"></span>
+        <strong>Prenotazioni</strong>
+      </button>
+
+      <button
+        *ngIf="isAdminUser"
+        pButton
+        type="button"
+        routerLink="/prenotazioni-admin"
+        routerLinkActive
+        #adminBookingsActive="routerLinkActive"
+        [class.is-active]="adminBookingsActive.isActive"
+        (click)="closeAfterNavigation($event)"
+        class="nav-item p-button-text">
+        <span class="pi pi-users"></span>
+        <strong>Gestione</strong>
+      </button>
+
+      <button
+        *ngIf="isAdminUser"
+        pButton
+        type="button"
+        routerLink="/blocchi-prenotazioni"
+        routerLinkActive
+        #blocksActive="routerLinkActive"
+        [class.is-active]="blocksActive.isActive"
+        (click)="closeAfterNavigation($event)"
+        class="nav-item p-button-text">
+        <span class="pi pi-ban"></span>
+        <strong>Blocchi</strong>
+      </button>
+    </nav>
+
+    <button pButton type="button" class="nav-item settings-link p-button-text">
+      <span class="pi pi-cog"></span>
+      <strong>Impostazioni</strong>
+    </button>
+  </div>
 </aside>

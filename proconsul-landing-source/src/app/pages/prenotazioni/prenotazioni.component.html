@@ -6,35 +6,68 @@
       </div>
 
       <div class="header-actions">
-        <button type="button" class="user-button">
-          <span class="user-avatar">{{ currentUserInitials }}</span>
-          <span class="user-info">
-            <strong>{{ currentUserName }}</strong>
-            <small *ngIf="currentUserProfileLabel">{{ currentUserProfileLabel }}</small>
-          </span>
-          <i class="pi pi-chevron-down" aria-hidden="true"></i>
-        </button>
+        <div class="user-menu-wrapper">
+          <button
+            type="button"
+            class="user-button"
+            aria-haspopup="menu"
+            [attr.aria-expanded]="isUserMenuOpen"
+            (click)="toggleUserMenu()">
+            <span class="user-avatar">{{ currentUserInitials }}</span>
+            <span class="user-info">
+              <strong>{{ currentUserName }}</strong>
+              <small *ngIf="currentUserProfileLabel">{{ currentUserProfileLabel }}</small>
+            </span>
+            <i
+              class="pi"
+              [ngClass]="isUserMenuOpen ? 'pi-chevron-up' : 'pi-chevron-down'"
+              aria-hidden="true">
+            </i>
+          </button>
 
-        <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
-          Esci
-        </button>
+          <button
+            *ngIf="isUserMenuOpen"
+            type="button"
+            class="user-menu-backdrop"
+            aria-label="Chiudi menu utente"
+            (click)="closeUserMenu()">
+          </button>
+
+          <div *ngIf="isUserMenuOpen" class="user-menu" role="menu">
+            <div class="user-menu-head">
+              <span class="user-avatar">{{ currentUserInitials }}</span>
+              <span class="user-menu-identity">
+                <strong>{{ currentUserName }}</strong>
+                <small *ngIf="currentUserProfileLabel">{{ currentUserProfileLabel }}</small>
+                <em *ngIf="currentUserEmail">{{ currentUserEmail }}</em>
+              </span>
+            </div>
+
+            <button type="button" role="menuitem" (click)="goToRoute('/prenotazioni')">
+              <i class="pi pi-calendar" aria-hidden="true"></i>
+              <span>Prenotazioni</span>
+            </button>
+
+            <button *ngIf="isAdminUser" type="button" role="menuitem" (click)="goToRoute('/prenotazioni-admin')">
+              <i class="pi pi-users" aria-hidden="true"></i>
+              <span>Gestione prenotazioni</span>
+            </button>
+
+            <button *ngIf="isAdminUser" type="button" role="menuitem" (click)="goToRoute('/blocchi-prenotazioni')">
+              <i class="pi pi-ban" aria-hidden="true"></i>
+              <span>Blocchi prenotazioni</span>
+            </button>
+
+            <span class="user-menu-divider" aria-hidden="true"></span>
+
+            <button type="button" class="logout-menu-item" role="menuitem" (click)="goToLogin()">
+              <i class="pi pi-sign-out" aria-hidden="true"></i>
+              <span>Esci</span>
+            </button>
+          </div>
+        </div>
       </div>
     </header>
-
-    <div class="workspace-toolbar">
-      <button type="button" class="toolbar-button date-input-wrapper" (click)="openDatePicker(toolbarDateInput)">
-        <span>{{ selectedDateLabel }}</span>
-        <input
-          #toolbarDateInput
-          type="date"
-          [ngModel]="selectedDate"
-          (ngModelChange)="onDateChange($event)"
-          aria-label="Data prenotazione" />
-        <i class="pi pi-chevron-down" aria-hidden="true"></i>
-      </button>
-
-      <span class="toolbar-spacer"></span>
-    </div>
 
     <div
       *ngIf="feedbackMessage as message"
@@ -47,6 +80,16 @@
 
     <div class="workspace-content">
       <aside class="booking-panel" aria-label="Pannello prenotazione">
+        <section class="panel-card date-card">
+          <span>Data</span>
+          <app-date-picker
+            [value]="selectedDate"
+            [allowClear]="false"
+            ariaLabel="Data prenotazione"
+            (valueChange)="onDateChange($event)">
+          </app-date-picker>
+        </section>
+
         <section class="panel-card reservation-card">
           <h2>La tua prenotazione</h2>
 
@@ -77,19 +120,27 @@
             </div>
           </ng-template>
         </section>
-      </aside>
 
-      <section class="map-column" aria-label="Mappa ufficio">
-        <section class="metric-row" aria-label="Metriche rapide">
-          <article *ngFor="let metric of metrics">
+        <section class="metric-card" aria-label="Metriche rapide">
+          <article *ngFor="let metric of metrics" class="metric-item">
             <span>{{ metric.label }}</span>
             <strong>{{ metric.value }}</strong>
           </article>
         </section>
+      </aside>
 
+      <section class="map-column" aria-label="Mappa ufficio">
         <p-card styleClass="floor-card">
           <div class="floor-plan" aria-label="Mappa uffici">
-            <div class="map-canvas">
+            <div
+              class="map-canvas"
+              [class.map-is-pannable]="mapZoom > minMapZoom"
+              [class.map-is-panning]="isMapPanning"
+              (pointerdown)="startMapPan($event)"
+              (pointermove)="moveMapPan($event)"
+              (pointerup)="endMapPan($event)"
+              (pointercancel)="endMapPan($event)"
+              (pointerleave)="endMapPan($event)">
               <div class="map-zoom-layer" [style.transform]="mapTransform">
                 <img
                   src="assets/workspace-map-clean.png"
@@ -127,8 +178,18 @@
               </div>
 
               <div class="map-controls" aria-label="Controlli zoom mappa">
-                <button type="button" aria-label="Ingrandisci mappa" [disabled]="mapZoom >= maxMapZoom" (click)="increaseMapZoom()">+</button>
-                <button type="button" aria-label="Riduci mappa" [disabled]="mapZoom <= minMapZoom" (click)="decreaseMapZoom()">-</button>
+                <button
+                  type="button"
+                  aria-label="Ingrandisci mappa"
+                  [disabled]="mapZoom >= maxMapZoom"
+                  (pointerdown)="$event.stopPropagation()"
+                  (click)="increaseMapZoom()">+</button>
+                <button
+                  type="button"
+                  aria-label="Riduci mappa"
+                  [disabled]="mapZoom <= minMapZoom"
+                  (pointerdown)="$event.stopPropagation()"
+                  (click)="decreaseMapZoom()">-</button>
               </div>
             </div>
 
@@ -138,30 +199,6 @@
             </div>
           </div>
         </p-card>
-
-        <section class="available-panel">
-          <header>
-            <h2>Posti disponibili ({{ availableSeats.length }})</h2>
-          </header>
-
-          <div *ngIf="availableSeats.length; else noAvailableSeats" class="seat-card-row">
-            <article
-              *ngFor="let seat of availableSeats; trackBy: trackBySeat"
-              class="seat-card"
-              [class.seat-card-selected]="seat.selected">
-              <strong>{{ seat.seat }}</strong>
-              <span>{{ seat.room }}</span>
-              <p><i class="pi pi-briefcase" aria-hidden="true"></i> {{ seat.type }}</p>
-              <button type="button" [disabled]="isSaving" (click)="prenotaPosto(seat)">Prenota</button>
-            </article>
-          </div>
-
-          <ng-template #noAvailableSeats>
-            <div class="empty-seats">
-              Nessun posto disponibile per questa data.
-            </div>
-          </ng-template>
-        </section>
       </section>
     </div>
   </main>

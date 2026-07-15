@@ -42,12 +42,12 @@
       <div class="date-grid">
         <label>
           <span>Da</span>
-          <input type="date" [(ngModel)]="nuovoBlocco.dataInizio" />
+          <app-date-picker [(value)]="nuovoBlocco.dataInizio" [allowClear]="false" ariaLabel="Data inizio blocco"></app-date-picker>
         </label>
 
         <label>
           <span>A</span>
-          <input type="date" [(ngModel)]="nuovoBlocco.dataFine" />
+          <app-date-picker [(value)]="nuovoBlocco.dataFine" [allowClear]="false" ariaLabel="Data fine blocco"></app-date-picker>
         </label>
       </div>
 
@@ -80,12 +80,12 @@
         <div class="filter-row">
           <label>
             <span>Da</span>
-            <input type="date" [(ngModel)]="filtro.dataDa" />
+            <app-date-picker [(value)]="filtro.dataDa" [allowClear]="false" ariaLabel="Data inizio filtro"></app-date-picker>
           </label>
 
           <label>
             <span>A</span>
-            <input type="date" [(ngModel)]="filtro.dataA" />
+            <app-date-picker [(value)]="filtro.dataA" [allowClear]="false" ariaLabel="Data fine filtro"></app-date-picker>
           </label>
 
           <button pButton type="button" class="filter-button p-button-outlined" [disabled]="isLoading" (click)="caricaBlocchi(true)">
