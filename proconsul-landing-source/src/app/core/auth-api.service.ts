@@ -16,9 +16,13 @@ export interface UserInfo {
   refreshToken?: string;
   authMethod?: string;
   roleCode?: string;
+  roleName?: string;
+  descrizioneRuolo?: string;
   profileCode?: string;
   idProfile?: number;
 }
+
+const SESSION_KEYS = ['accessToken', 'refreshToken', 'userInfo', 'token', 'jwt'];
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
@@ -72,8 +76,9 @@ export class AuthApiService {
   }
 
   clearSession(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userInfo');
+    SESSION_KEYS.forEach(key => {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    });
   }
 }

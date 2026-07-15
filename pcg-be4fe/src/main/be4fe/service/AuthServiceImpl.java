@@ -346,9 +346,6 @@ public class AuthServiceImpl extends BaseGenericRestService<BaseEntity, BaseDTO,
 	}
 
 	private String buildRedirectUrl(String jwt, String state, ExternalAuthWithSecretDTO config) throws Exception {
-		log.info("REDIRECT: Creazione URL di indirizzamento");
-		log.info("state: "+state);
-		log.info("jwt: "+jwt);
 		String baseUrl = state.contains("localhost") ? "http://localhost:4200/callback" : config.getClientRedirectUrl();
 		Utils.encryptAES(jwt);
 		return baseUrl + "?state=" + jwt;

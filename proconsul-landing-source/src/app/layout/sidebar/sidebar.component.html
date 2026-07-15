@@ -28,7 +28,7 @@
     <button
       pButton
       type="button"
-      routerLink="/home/prenotazioni"
+      routerLink="/prenotazioni"
       routerLinkActive
       #bookingActive="routerLinkActive"
       [class.is-active]="bookingActive.isActive"
@@ -36,6 +36,34 @@
       class="nav-item p-button-text">
       <span class="pi pi-calendar"></span>
       <strong>Prenotazioni</strong>
+    </button>
+
+    <button
+      *ngIf="isAdminUser"
+      pButton
+      type="button"
+      routerLink="/prenotazioni-admin"
+      routerLinkActive
+      #adminBookingsActive="routerLinkActive"
+      [class.is-active]="adminBookingsActive.isActive"
+      (click)="closeAfterNavigation($event)"
+      class="nav-item p-button-text">
+      <span class="pi pi-users"></span>
+      <strong>Gestione</strong>
+    </button>
+
+    <button
+      *ngIf="isAdminUser"
+      pButton
+      type="button"
+      routerLink="/blocchi-prenotazioni"
+      routerLinkActive
+      #blocksActive="routerLinkActive"
+      [class.is-active]="blocksActive.isActive"
+      (click)="closeAfterNavigation($event)"
+      class="nav-item p-button-text">
+      <span class="pi pi-ban"></span>
+      <strong>Blocchi</strong>
     </button>
   </nav>
 

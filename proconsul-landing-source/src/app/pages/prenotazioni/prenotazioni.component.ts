@@ -81,6 +81,7 @@ export interface FeedbackMessage {
 })
 export class PrenotazioniComponent implements OnInit {
   private readonly feedbackStorageKey = 'prenotazioniFeedbackMessage';
+  private readonly selectedDateStorageKey = 'prenotazioniSelectedDate';
   private readonly router = inject(Router);
   private readonly prenotazioniApi = inject(PrenotazioniApiService);
   private readonly authApi = inject(AuthApiService);
@@ -93,14 +94,18 @@ export class PrenotazioniComponent implements OnInit {
     4: ['seat-w4-1', 'seat-w4-2', 'seat-w4-3', 'seat-w4-4']
   };
 
-  selectedDate = this.toIsoDate(new Date());
+  selectedDate = this.getStoredSelectedDate();
   selectedZone: BookingZone | null = null;
   selectedSeat: AvailableSeat | null = null;
   showZoneDialog = false;
   isLoading = false;
   isLoadingPosti = false;
   isSaving = false;
+  mapZoom = 1;
+  readonly minMapZoom = 1;
+  readonly maxMapZoom = 1.6;
   feedbackMessage: FeedbackMessage | null = null;
+  private feedbackTimeoutId?: number;
   currentUser: UserInfo | null = this.authApi.getCurrentUserInfo();
 
   metrics: BookingMetric[] = [
@@ -196,6 +201,17 @@ export class PrenotazioniComponent implements OnInit {
     return this.currentUser?.profileCode || '';
   }
 
+  get currentUserProfileLabel(): string {
+    const profileCode = this.currentUser?.profileCode;
+    const roleDescription = this.currentUser?.descrizioneRuolo
+      || this.currentUser?.roleName
+      || this.currentUser?.roleCode;
+
+    return [profileCode, roleDescription]
+      .filter(Boolean)
+      .join(' - ');
+  }
+
   get currentUserInitials(): string {
     return this.currentUserName
       .split(' ')
@@ -211,6 +227,10 @@ export class PrenotazioniComponent implements OnInit {
     }
 
     return Boolean(this.selectedZone.exclusive || this.selectedSeat);
+  }
+
+  get mapTransform(): string {
+    return `scale(${this.mapZoom})`;
   }
 
   ngOnInit(): void {
@@ -241,13 +261,26 @@ export class PrenotazioniComponent implements OnInit {
     }
 
     this.selectedDate = value;
+    sessionStorage.setItem(this.selectedDateStorageKey, value);
     this.selectedSeat = null;
     this.refreshPrenotazioni();
+  }
+
+  increaseMapZoom(): void {
+    this.mapZoom = Math.min(this.maxMapZoom, this.roundMapZoom(this.mapZoom + 0.15));
+  }
+
+  decreaseMapZoom(): void {
+    this.mapZoom = Math.max(this.minMapZoom, this.roundMapZoom(this.mapZoom - 0.15));
   }
 
   refreshPrenotazioni(clearFeedback = true): void {
     this.loadPrenotazioni(clearFeedback);
     this.caricaPostiWorkspace(clearFeedback);
+  }
+
+  private roundMapZoom(value: number): number {
+    return Number(value.toFixed(2));
   }
 
   loadPrenotazioni(clearFeedback = true): void {
@@ -431,6 +464,8 @@ export class PrenotazioniComponent implements OnInit {
 
     this.isSaving = true;
     this.feedbackMessage = null;
+    this.showZoneDialog = false;
+    this.changeDetector.detectChanges();
 
     this.prenotazioniApi.creaPrenotazione({
       idWorkspace,
@@ -443,7 +478,6 @@ export class PrenotazioniComponent implements OnInit {
       )
       .subscribe({
         next: response => {
-          this.showZoneDialog = false;
           this.markSeatAsBooked(idWorkspaceSeat);
           this.showSuccessFromResponse(response, 'Prenotazione creata correttamente.');
           this.refreshPageAfterAction();
@@ -645,24 +679,25 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   private showSuccessFromResponse(response: MessageResponse | null | undefined, fallbackMessage: string): void {
-    this.feedbackMessage = {
+    this.setFeedbackMessage({
       type: 'success',
       text: response?.message || fallbackMessage
-    };
+    });
   }
 
   private handleActionError(error: unknown, timeoutMessage: string): void {
     if (this.isTimeoutError(error)) {
-      this.feedbackMessage = {
+      this.setFeedbackMessage({
         type: 'success',
         text: timeoutMessage
-      };
-    } else {
-      this.showError(this.createErrorMessage(error));
+      });
+      this.showZoneDialog = false;
+      this.refreshPageAfterAction();
+      return;
     }
 
     this.showZoneDialog = false;
-    this.refreshPageAfterAction();
+    this.showError(this.createErrorMessage(error));
   }
 
   private refreshPageAfterAction(): void {
@@ -670,6 +705,7 @@ export class PrenotazioniComponent implements OnInit {
       sessionStorage.setItem(this.feedbackStorageKey, JSON.stringify(this.feedbackMessage));
     }
 
+    sessionStorage.setItem(this.selectedDateStorageKey, this.selectedDate);
     window.setTimeout(() => window.location.reload(), 350);
   }
 
@@ -683,7 +719,7 @@ export class PrenotazioniComponent implements OnInit {
     sessionStorage.removeItem(this.feedbackStorageKey);
 
     try {
-      this.feedbackMessage = JSON.parse(rawMessage) as FeedbackMessage;
+      this.setFeedbackMessage(JSON.parse(rawMessage) as FeedbackMessage);
     } catch {
       this.feedbackMessage = null;
     }
@@ -694,10 +730,35 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   private showError(message: string): void {
-    this.feedbackMessage = {
+    this.setFeedbackMessage({
       type: 'error',
       text: message
-    };
+    });
+  }
+
+  private setFeedbackMessage(message: FeedbackMessage): void {
+    const isSameMessage = this.feedbackMessage?.type === message.type
+      && this.feedbackMessage?.text === message.text;
+
+    if (isSameMessage && this.feedbackTimeoutId) {
+      return;
+    }
+
+    this.feedbackMessage = message;
+    this.scheduleFeedbackClear();
+    this.changeDetector.detectChanges();
+  }
+
+  private scheduleFeedbackClear(): void {
+    if (this.feedbackTimeoutId) {
+      window.clearTimeout(this.feedbackTimeoutId);
+    }
+
+    this.feedbackTimeoutId = window.setTimeout(() => {
+      this.feedbackMessage = null;
+      this.feedbackTimeoutId = undefined;
+      this.changeDetector.detectChanges();
+    }, 3000);
   }
 
   private createErrorMessage(error: unknown): string {
@@ -728,7 +789,7 @@ export class PrenotazioniComponent implements OnInit {
     return 'Operazione non riuscita. Riprova tra poco.';
   }
 
-  private formatItalianDate(value: string): string {
+  protected formatItalianDate(value: string): string {
     const date = new Date(`${value}T00:00:00`);
     const formatted = new Intl.DateTimeFormat('it-IT', {
       weekday: 'long',
@@ -746,5 +807,13 @@ export class PrenotazioniComponent implements OnInit {
     const day = String(date.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+  }
+
+  private getStoredSelectedDate(): string {
+    const storedDate = sessionStorage.getItem(this.selectedDateStorageKey);
+
+    return storedDate && /^\d{4}-\d{2}-\d{2}$/.test(storedDate)
+      ? storedDate
+      : this.toIsoDate(new Date());
   }
 }

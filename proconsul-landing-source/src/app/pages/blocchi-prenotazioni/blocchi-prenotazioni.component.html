@@ -1,0 +1,129 @@
+<section class="blocks-page" aria-label="Gestione blocchi prenotazioni">
+  <header class="blocks-header">
+    <div>
+      <span>Area admin</span>
+      <h1>Blocchi prenotazioni</h1>
+    </div>
+
+    <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
+      Esci
+    </button>
+  </header>
+
+  <div
+    *ngIf="feedbackMessage as message"
+    class="api-message"
+    [class.api-message-success]="message.type === 'success'"
+    [class.api-message-error]="message.type === 'error'"
+    role="alert">
+    {{ message.text }}
+  </div>
+
+  <section class="summary-grid" aria-label="Riepilogo blocchi">
+    <article>
+      <span>Blocchi nel periodo</span>
+      <strong>{{ activeBlocksCount }}</strong>
+    </article>
+
+    <article>
+      <span>Periodo</span>
+      <strong>{{ formatItalianDate(filtro.dataDa) }}</strong>
+      <small>{{ formatItalianDate(filtro.dataA) }}</small>
+    </article>
+  </section>
+
+  <div class="blocks-layout">
+    <section class="form-panel" aria-label="Crea blocco prenotazioni">
+      <div class="panel-heading">
+        <span>Nuovo blocco</span>
+        <h2>Impedisci nuove prenotazioni</h2>
+      </div>
+
+      <div class="date-grid">
+        <label>
+          <span>Da</span>
+          <input type="date" [(ngModel)]="nuovoBlocco.dataInizio" />
+        </label>
+
+        <label>
+          <span>A</span>
+          <input type="date" [(ngModel)]="nuovoBlocco.dataFine" />
+        </label>
+      </div>
+
+      <label>
+        <span>Motivo</span>
+        <textarea
+          [(ngModel)]="nuovoBlocco.motivo"
+          rows="5"
+          placeholder="Es. sede chiusa per ferie">
+        </textarea>
+      </label>
+
+      <button
+        pButton
+        type="button"
+        class="primary-action"
+        [disabled]="isSaving"
+        (click)="creaBlocco()">
+        Crea blocco
+      </button>
+    </section>
+
+    <section class="list-panel" aria-label="Blocchi prenotazioni esistenti">
+      <header>
+        <div>
+          <span>Archivio blocchi</span>
+          <h2>Blocchi attivi</h2>
+        </div>
+
+        <div class="filter-row">
+          <label>
+            <span>Da</span>
+            <input type="date" [(ngModel)]="filtro.dataDa" />
+          </label>
+
+          <label>
+            <span>A</span>
+            <input type="date" [(ngModel)]="filtro.dataA" />
+          </label>
+
+          <button pButton type="button" class="filter-button p-button-outlined" [disabled]="isLoading" (click)="caricaBlocchi(true)">
+            Filtra
+          </button>
+        </div>
+      </header>
+
+      <div *ngIf="isLoading" class="empty-state">
+        Caricamento blocchi...
+      </div>
+
+      <div *ngIf="!isLoading && !blocchi.length" class="empty-state">
+        Nessun blocco presente nel periodo selezionato.
+      </div>
+
+      <div *ngIf="!isLoading && blocchi.length" class="blocks-table">
+        <article *ngFor="let blocco of blocchi" class="block-row">
+          <div class="block-date">
+            <strong>{{ formatItalianDate(blocco.dataInizio) }}</strong>
+            <span>{{ formatItalianDate(blocco.dataFine) }}</span>
+          </div>
+
+          <div class="block-reason">
+            <strong>{{ blocco.motivo || 'Nessun motivo indicato' }}</strong>
+            <span *ngIf="blocco.dataCreazione">Creato il {{ formatItalianDate(blocco.dataCreazione.slice(0, 10)) }}</span>
+          </div>
+
+          <button
+            type="button"
+            class="delete-button"
+            aria-label="Elimina blocco prenotazioni"
+            [disabled]="isSaving"
+            (click)="eliminaBlocco(blocco.idBlocco)">
+            <i class="pi pi-trash" aria-hidden="true"></i>
+          </button>
+        </article>
+      </div>
+    </section>
+  </div>
+</section>

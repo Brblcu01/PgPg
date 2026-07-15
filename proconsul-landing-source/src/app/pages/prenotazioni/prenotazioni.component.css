@@ -90,7 +90,7 @@
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0;
-  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .user-avatar {
@@ -171,15 +171,13 @@
 .workspace-content {
   min-width: 0;
   display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
 }
 
 .booking-panel {
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: block;
 }
 
 .panel-card,
@@ -356,6 +354,14 @@
   overflow: hidden;
   border-radius: 8px 8px 0 0;
   container-type: inline-size;
+}
+
+.map-zoom-layer {
+  position: relative;
+  width: 100%;
+  transform-origin: center center;
+  transition: transform 220ms ease;
+  will-change: transform;
 }
 
 .floor-plan-image {
@@ -572,6 +578,12 @@
   box-shadow: 0 10px 24px rgb(28 63 105 / 12%);
   font-size: clamp(0.9rem, 1.75cqw, 1.2rem);
   font-weight: 800;
+  cursor: pointer;
+}
+
+.map-controls button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
 }
 
 .legend-bar {
@@ -614,7 +626,7 @@
 
 .seat-card-row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -755,20 +767,6 @@
   padding-top: 0.75rem;
 }
 
-@media (max-width: 1180px) {
-  .workspace-content {
-    grid-template-columns: 1fr;
-  }
-
-  .booking-panel {
-    display: block;
-  }
-
-  .seat-card-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 760px) {
   .workspace-main {
     padding-inline: 14px;
@@ -788,7 +786,6 @@
     flex-wrap: wrap;
   }
 
-  .booking-panel,
   .metric-row,
   .seat-card-row {
     grid-template-columns: 1fr;
@@ -834,51 +831,51 @@
 }
 
 .zone-academy {
-  top: 39.9% !important;
-  left: 34.1% !important;
-  width: 16.8% !important;
-  height: 31.2% !important;
+  top: 41% !important;
+  left: 34.0% !important;
+  width: 15.2% !important;
+  height: 34% !important;
 }
 
 .zone-meeting {
-  top: 4.6% !important;
-  left: 81.3% !important;
-  width: 12.6% !important;
-  height: 22.9% !important;
+  top: 3.2% !important;
+  left: 77.3% !important;
+  width: 15.2% !important;
+  height: 23.8% !important;
 }
 
 .zone-workspace-4 {
-  top: 42% !important;
-  left: 77.1% !important;
-  width: 16.8% !important;
-  height: 18.7% !important;
+  top: 42.5% !important;
+  left: 75.3% !important;
+  width: 18% !important;
+  height: 20.8% !important;
 }
 
 .zone-workspace-3 {
-  top: 47.2% !important;
-  left: 52% !important;
-  width: 15.7% !important;
-  height: 25% !important;
+  top: 45.6% !important;
+  left: 50% !important;
+  width: 16.2% !important;
+  height: 31.3% !important;
 }
 
 .zone-workspace-1 {
-  top: 84.7% !important;
-  left: 67.7% !important;
-  width: 13.6% !important;
-  height: 11.4% !important;
+  top: 87% !important;
+  left: 65.6% !important;
+  width: 16% !important;
+  height: 10% !important;
 }
 
-.seat-w1-1 { top: 88.5% !important; left: 70.7% !important; }
-.seat-w1-2 { top: 88.5% !important; left: 75.9% !important; }
+.seat-w1-1 { top: 91.5% !important; left: 68% !important; }
+.seat-w1-2 { top: 91.5% !important; left: 73% !important; }
 
-.seat-w3-1 { top: 52.4% !important; left: 55% !important; }
-.seat-w3-2 { top: 52.4% !important; left: 62.3% !important; }
-.seat-w3-3 { top: 58.6% !important; left: 55% !important; }
-.seat-w3-4 { top: 58.6% !important; left: 62.3% !important; }
-.seat-w3-5 { top: 64.9% !important; left: 55% !important; }
-.seat-w3-6 { top: 64.9% !important; left: 62.3% !important; }
+.seat-w3-1 { top: 57.6% !important; left: 60.5% !important; }
+.seat-w3-2 { top: 62.6% !important; left: 60.5% !important; }
+.seat-w3-3 { top: 67.9% !important; left: 60.5% !important; }
+.seat-w3-4 { top: 57.6% !important; left: 53.0% !important; }
+.seat-w3-5 { top: 62.6% !important; left: 53.0% !important; }
+.seat-w3-6 { top: 67.9% !important; left: 53.0% !important; }
 
-.seat-w4-1 { top: 47.3% !important; left: 81.3% !important; }
-.seat-w4-2 { top: 47.3% !important; left: 87.6% !important; }
-.seat-w4-3 { top: 55.4% !important; left: 81.3% !important; }
-.seat-w4-4 { top: 55.4% !important; left: 87.6% !important; }
+.seat-w4-1 { top: 50.2% !important; left: 76.7% !important; }
+.seat-w4-2 { top: 50.2% !important; left: 86.2% !important; }
+.seat-w4-3 { top: 55.5% !important; left: 76.7% !important; }
+.seat-w4-4 { top: 55.5% !important; left: 86.2% !important; }

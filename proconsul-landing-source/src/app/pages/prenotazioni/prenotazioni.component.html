@@ -10,7 +10,7 @@
           <span class="user-avatar">{{ currentUserInitials }}</span>
           <span class="user-info">
             <strong>{{ currentUserName }}</strong>
-            <small *ngIf="currentUserProfileCode">{{ currentUserProfileCode }}</small>
+            <small *ngIf="currentUserProfileLabel">{{ currentUserProfileLabel }}</small>
           </span>
           <i class="pi pi-chevron-down" aria-hidden="true"></i>
         </button>
@@ -90,44 +90,45 @@
         <p-card styleClass="floor-card">
           <div class="floor-plan" aria-label="Mappa uffici">
             <div class="map-canvas">
-              <img
-                src="assets/workspace-map-clean.png"
-                alt="Mappa renderizzata dell'ufficio"
-                class="floor-plan-image" />
+              <div class="map-zoom-layer" [style.transform]="mapTransform">
+                <img
+                  src="assets/workspace-map-clean.png"
+                  alt="Mappa renderizzata dell'ufficio"
+                  class="floor-plan-image" />
 
-              <button
-                *ngFor="let zone of zones"
-                type="button"
-                class="floor-zone"
-                [ngClass]="[zone.cssClass, 'zone-' + zone.status]"
-                [pTooltip]="(zone.description || zone.label) + ' - ' + getZoneStatusLabel(zone.status)"
-                tooltipPosition="top"
-                (click)="selectZone(zone)">
-                <span class="zone-title">{{ zone.label }}</span>
-              </button>
+                <button
+                  *ngFor="let zone of zones"
+                  type="button"
+                  class="floor-zone"
+                  [ngClass]="[zone.cssClass, 'zone-' + zone.status]"
+                  [pTooltip]="(zone.description || zone.label) + ' - ' + getZoneStatusLabel(zone.status)"
+                  tooltipPosition="top"
+                  (click)="selectZone(zone)">
+                  <span class="zone-title">{{ zone.label }}</span>
+                </button>
 
-              <button
-                *ngFor="let marker of mapSeatMarkers; trackBy: trackByMarker"
-                type="button"
-                class="seat-marker"
-                [ngClass]="[
-                  marker.cssClass,
-                  marker.occupied ? 'seat-booked' : 'seat-free',
-                  selectedSeat && selectedSeat.idWorkspaceSeat === marker.idWorkspaceSeat ? 'seat-selected' : '',
-                  marker.idWorkspaceSeat == null ? 'seat-unavailable' : ''
-                ]"
-                [disabled]="isSaving"
-                [attr.aria-label]="(marker.seatName || 'Posto ' + marker.label) + ' ' + (marker.occupied ? 'prenotato' : 'disponibile')"
-                [pTooltip]="marker.idWorkspaceSeat == null ? 'Posto non disponibile' : (marker.seatName || 'Posto ' + marker.label) + ' - ' + (marker.occupied ? 'Prenotato' : 'Disponibile')"
-                tooltipPosition="top"
-                (click)="selectMapSeat(marker)">
-                {{ marker.label }}
-              </button>
+                <button
+                  *ngFor="let marker of mapSeatMarkers; trackBy: trackByMarker"
+                  type="button"
+                  class="seat-marker"
+                  [ngClass]="[
+                    marker.cssClass,
+                    marker.occupied ? 'seat-booked' : 'seat-free',
+                    selectedSeat && selectedSeat.idWorkspaceSeat === marker.idWorkspaceSeat ? 'seat-selected' : '',
+                    marker.idWorkspaceSeat == null ? 'seat-unavailable' : ''
+                  ]"
+                  [disabled]="isSaving"
+                  [attr.aria-label]="(marker.seatName || 'Posto ' + marker.label) + ' ' + (marker.occupied ? 'prenotato' : 'disponibile')"
+                  [pTooltip]="marker.idWorkspaceSeat == null ? 'Posto non disponibile' : (marker.seatName || 'Posto ' + marker.label) + ' - ' + (marker.occupied ? 'Prenotato' : 'Disponibile')"
+                  tooltipPosition="top"
+                  (click)="selectMapSeat(marker)">
+                  {{ marker.label }}
+                </button>
+              </div>
 
-              <div class="map-controls" aria-hidden="true">
-                <button type="button">+</button>
-                <button type="button">-</button>
-                <button type="button"><i class="pi pi-sliders-h"></i></button>
+              <div class="map-controls" aria-label="Controlli zoom mappa">
+                <button type="button" aria-label="Ingrandisci mappa" [disabled]="mapZoom >= maxMapZoom" (click)="increaseMapZoom()">+</button>
+                <button type="button" aria-label="Riduci mappa" [disabled]="mapZoom <= minMapZoom" (click)="decreaseMapZoom()">-</button>
               </div>
             </div>
 

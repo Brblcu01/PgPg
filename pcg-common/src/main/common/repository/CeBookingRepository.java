@@ -97,6 +97,19 @@ public interface CeBookingRepository extends BaseRepository<CeBooking> {
     @Query("""
     SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END
     FROM CeBooking p
+    JOIN p.utente u
+    JOIN u.profile profilo
+    WHERE p.id = :idPrenotazione
+      AND UPPER(profilo.code) = UPPER(:profileCode)
+""")
+    boolean existsByIdAndUserProfileCode(
+            @Param("idPrenotazione") Long idPrenotazione,
+            @Param("profileCode") String profileCode
+    );
+
+    @Query("""
+    SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END
+    FROM CeBooking p
     WHERE p.idWorkspaceSeatFk = :idPosto
       AND p.dataPrenotazione = :data
       AND p.stato = :stato

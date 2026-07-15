@@ -31,17 +31,34 @@ export interface PrenotazioneDTO {
   codiceRisorsa?: string;
   nomeWorkspace?: string;
   nomeRisorsa?: string;
+  postazioneName?: string;
   idUtente?: number;
+  utenteName?: string;
   dataPrenotazione: string;
   stato?: string;
   dataCreazione?: string;
   prenotazioneUtenteCorrente?: boolean;
 }
 
+export interface BloccoPrenotazioniDTO {
+  idBlocco: number;
+  dataInizio: string;
+  dataFine: string;
+  motivo?: string;
+  idUtenteCreazione?: number;
+  dataCreazione?: string;
+}
+
 export interface RichiestaPrenotazioneDTO {
   idWorkspace: number;
   dataPrenotazione: string;
   idWorkspaceSeat?: number;
+}
+
+export interface RichiestaBloccoPrenotazioniDTO {
+  dataInizio: string;
+  dataFine: string;
+  motivo: string;
 }
 
 export interface MessageResponse {
@@ -60,8 +77,12 @@ export class PrenotazioniApiService {
     });
   }
 
-  trovaPrenotate(data: string, dataDa?: string, dataA?: string): Observable<PrenotazioneDTO[]> {
-    let params = new HttpParams().set('data', data);
+  trovaPrenotate(data?: string, dataDa?: string, dataA?: string): Observable<PrenotazioneDTO[]> {
+    let params = new HttpParams();
+
+    if (data) {
+      params = params.set('data', data);
+    }
 
     if (dataDa) {
       params = params.set('dataDa', dataDa);
@@ -97,6 +118,32 @@ export class PrenotazioniApiService {
 
   eliminaPrenotazione(idPrenotazione: number): Observable<MessageResponse> {
     return this.http.delete<MessageResponse>(`${this.baseUrl}/${idPrenotazione}`);
+  }
+
+  trovaBlocchiPrenotazioni(data?: string, dataDa?: string, dataA?: string): Observable<BloccoPrenotazioniDTO[]> {
+    let params = new HttpParams();
+
+    if (data) {
+      params = params.set('data', data);
+    }
+
+    if (dataDa) {
+      params = params.set('dataDa', dataDa);
+    }
+
+    if (dataA) {
+      params = params.set('dataA', dataA);
+    }
+
+    return this.http.get<BloccoPrenotazioniDTO[]>(`${this.baseUrl}/admin/blocchi`, { params });
+  }
+
+  creaBloccoPrenotazioni(richiesta: RichiestaBloccoPrenotazioniDTO): Observable<MessageResponse> {
+    return this.http.post<MessageResponse>(`${this.baseUrl}/admin/blocchi`, richiesta);
+  }
+
+  eliminaBloccoPrenotazioni(idBlocco: number): Observable<MessageResponse> {
+    return this.http.delete<MessageResponse>(`${this.baseUrl}/admin/blocchi/${idBlocco}`);
   }
 
   private toArray(response: unknown): Record<string, unknown>[] {

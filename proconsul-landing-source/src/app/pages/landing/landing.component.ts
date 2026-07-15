@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { AuthApiService } from '../../core/auth-api.service';
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css'
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit {
   @ViewChild('introVideo') private introVideo?: ElementRef<HTMLVideoElement>;
 
   private readonly router = inject(Router);
@@ -31,6 +31,12 @@ export class LandingComponent {
   private pendingAuthorizationUrl: string | null = null;
   private pendingPrenotazioniNavigation = false;
   private videoFinished = false;
+
+  ngOnInit(): void {
+    if (this.authApi.shouldUseLocalhostForLogin()) {
+      this.authApi.goToLocalhostLogin();
+    }
+  }
 
   protected startLoginVideo(): void {
     const video = this.introVideo?.nativeElement;
@@ -54,11 +60,7 @@ export class LandingComponent {
   }
 
   protected loginWithMicrosoft(): void {
-    if (this.authApi.shouldUseLocalhostForLogin()) {
-      this.authApi.goToLocalhostLogin();
-      return;
-    }
-
+    this.authApi.clearSession();
     this.startLoginVideo();
     this.loginLoading = true;
     this.loginError = null;

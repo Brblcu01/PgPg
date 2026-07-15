@@ -1,0 +1,142 @@
+<section class="admin-bookings-page" aria-label="Gestione prenotazioni dipendenti">
+  <header class="admin-header">
+    <div>
+      <span>Area admin</span>
+      <h1>Prenotazioni dipendenti</h1>
+    </div>
+
+    <button pButton type="button" class="logout-button p-button-outlined" (click)="goToLogin()">
+      Esci
+    </button>
+  </header>
+
+  <div
+    *ngIf="feedbackMessage as message"
+    class="api-message"
+    [class.api-message-success]="message.type === 'success'"
+    [class.api-message-error]="message.type === 'error'"
+    role="alert">
+    {{ message.text }}
+  </div>
+
+  <section class="summary-grid" aria-label="Riepilogo prenotazioni">
+    <article>
+      <span>Prenotazioni trovate</span>
+      <strong>{{ totalPrenotazioni }}</strong>
+    </article>
+
+    <article>
+      <span>Periodo consultato</span>
+      <strong>{{ filtro.dataDa || filtro.dataA ? formatItalianDate(filtro.dataDa || filtro.dataA) : formatItalianDate(filtro.data) }}</strong>
+      <small *ngIf="filtro.dataDa || filtro.dataA">{{ formatItalianDate(filtro.dataA || filtro.dataDa) }}</small>
+    </article>
+  </section>
+
+  <section class="filters-panel" aria-label="Filtri prenotazioni">
+    <div class="filter-field">
+      <span>Data</span>
+      <input type="date" [(ngModel)]="filtro.data" />
+    </div>
+
+    <div class="filter-field">
+      <span>Da</span>
+      <input type="date" [(ngModel)]="filtro.dataDa" />
+    </div>
+
+    <div class="filter-field">
+      <span>A</span>
+      <input type="date" [(ngModel)]="filtro.dataA" />
+    </div>
+
+    <button pButton type="button" class="filter-button p-button-outlined" [disabled]="isLoading" (click)="caricaPrenotazioni(true)">
+      Filtra
+    </button>
+  </section>
+
+  <section class="bookings-panel" aria-label="Lista prenotazioni">
+    <header>
+      <div>
+        <span>Archivio prenotazioni</span>
+        <h2>Gestione annullamenti</h2>
+      </div>
+    </header>
+
+    <div *ngIf="isLoading" class="empty-state">
+      Caricamento prenotazioni...
+    </div>
+
+    <div *ngIf="!isLoading && !prenotazioniFiltrate.length" class="empty-state">
+      Nessuna prenotazione presente per i filtri selezionati.
+    </div>
+
+    <div *ngIf="!isLoading && prenotazioniFiltrate.length" class="booking-table">
+      <div class="booking-table-header" aria-hidden="true">
+        <span>Data</span>
+        <span>Utente</span>
+        <span>Postazione</span>
+        <span>Data creazione</span>
+        <span>Azioni</span>
+      </div>
+
+      <article *ngFor="let prenotazione of prenotazioniFiltrate" class="booking-row">
+        <div class="booking-date">
+          <strong>{{ formatItalianDate(prenotazione.dataPrenotazione) }}</strong>
+        </div>
+
+        <div class="booking-employee">
+          <strong>{{ getEmployeeLabel(prenotazione) }}</strong>
+        </div>
+
+        <div class="booking-workspace-name">
+          <strong>{{ getBookingWorkspaceName(prenotazione) }}</strong>
+        </div>
+
+        <div class="booking-created">
+          <span>Creata</span>
+          <strong>{{ formatItalianDate(prenotazione.dataCreazione) }}</strong>
+        </div>
+
+        <button
+          type="button"
+          class="delete-button"
+          [disabled]="isSaving"
+          (click)="openDeleteDialog(prenotazione)">
+          Annulla
+        </button>
+      </article>
+    </div>
+  </section>
+
+  <p-dialog
+    header="Annulla prenotazione"
+    styleClass="admin-delete-dialog"
+    [(visible)]="showDeleteDialog"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [style]="{ width: '460px' }">
+    <div *ngIf="selectedBooking" class="delete-dialog-content">
+      <p>
+        Vuoi annullare la prenotazione di
+        <strong>{{ getEmployeeLabel(selectedBooking) }}</strong>
+        per
+        <strong>{{ getBookingWorkspaceName(selectedBooking) }}</strong>?
+      </p>
+
+      <div class="mail-warning">
+        <i class="pi pi-envelope" aria-hidden="true"></i>
+        <span>Il dipendente ricevera una email di avviso.</span>
+      </div>
+
+      <div class="dialog-actions">
+        <button pButton type="button" class="p-button-outlined" [disabled]="isSaving" (click)="closeDeleteDialog()">
+          Annulla
+        </button>
+
+        <button pButton type="button" severity="danger" [disabled]="isSaving" (click)="eliminaPrenotazioneAdmin()">
+          Conferma annullamento
+        </button>
+      </div>
+    </div>
+  </p-dialog>
+</section>

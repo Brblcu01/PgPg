@@ -25,6 +25,7 @@ import java.util.List;
 public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, PrenotazioneDTO, CeBookingRepository> implements PrenotazioneService {
 
     private static final String PROFILO_ADMIN = "ADMIN";
+    private static final String PROFILO_USER = "USER";
     private static final String STATO_CONFERMATA = "CONFIRMED";
     private static final String STATO_CANCELLATA = "CANCELLATA";
 
@@ -188,9 +189,13 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
             CeBooking prenotazione = repository.findById(idPrenotazione)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prenotazione non trovata"));
 
+            boolean prenotazioneDiUser = repository.existsByIdAndUserProfileCode(prenotazione.getId(), PROFILO_USER);
+
             annullaPrenotazione(prenotazione);
-            emailService.inviaNotificaPrenotazioneAnnullata(prenotazione.getId());
-            log.info("admin");
+
+            if(prenotazioneDiUser) {
+                emailService.inviaNotificaPrenotazioneAnnullata(prenotazione.getId());
+            }
 
         } else {
 

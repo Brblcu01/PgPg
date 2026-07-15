@@ -38,6 +38,20 @@ export const routes: Routes = [
           )
       },
       {
+        path: 'blocchi-prenotazioni',
+        loadComponent: () =>
+          import('./pages/blocchi-prenotazioni/blocchi-prenotazioni.component').then(
+            (m) => m.BlocchiPrenotazioniComponent
+          )
+      },
+      {
+        path: 'prenotazioni-admin',
+        loadComponent: () =>
+          import('./pages/prenotazioni-admin/prenotazioni-admin.component').then(
+            (m) => m.PrenotazioniAdminComponent
+          )
+      },
+      {
         path: 'dashboard',
         loadComponent: () =>
           import('./pages/dashboard/dashboard.component').then(

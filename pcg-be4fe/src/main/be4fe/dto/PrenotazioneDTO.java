@@ -22,6 +22,9 @@ public class PrenotazioneDTO extends BaseDTO {
     private String codiceWorkspace;
     private String nomeWorkspace;
     private Long idUtente;
+    private String utenteName;
+    private Long idPostazione;
+    private String postazioneName;
     private LocalDate dataPrenotazione;
     private String stato;
     private LocalDateTime dataCreazione;
