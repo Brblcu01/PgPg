@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +76,8 @@ public interface CeBookingRepository extends BaseRepository<CeBooking> {
     @Query("""
     SELECT p FROM CeBooking p
     JOIN FETCH p.postazioneLavoro r
+    JOIN p.utente u
+    JOIN u.profile profilo
     WHERE (
         (:data IS NOT NULL AND p.dataPrenotazione = :data)
         OR
@@ -83,13 +86,15 @@ public interface CeBookingRepository extends BaseRepository<CeBooking> {
             AND (:dataA IS NULL OR p.dataPrenotazione <= :dataA)
         )
     )
+      AND UPPER(profilo.code) = UPPER(:profileCode)
       AND (p.marcata IS NULL OR p.marcata = false)
     ORDER BY p.dataPrenotazione DESC, r.nome ASC, p.dataCreazione DESC
 """)
     List<CeBooking> trovaPrenotazioniAdmin(
             @Param("data") LocalDate data,
             @Param("dataDa") LocalDate dataDa,
-            @Param("dataA") LocalDate dataA
+            @Param("dataA") LocalDate dataA,
+            @Param("profileCode") String profileCode
     );
 
     Optional<CeBooking> findByIdAndIdUtenteFk(Long id, Long idUtenteFk);
@@ -118,6 +123,24 @@ public interface CeBookingRepository extends BaseRepository<CeBooking> {
     boolean existsPrenotazioneConfermataPosto(
             @Param("idPosto") Long idPosto,
             @Param("data") LocalDate data,
+            @Param("stato") String stato
+    );
+
+    @Query("""
+    SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END
+    FROM CeBooking p
+    WHERE p.idRisorsaPrenotabileFk = :idWorkspace
+      AND p.dataPrenotazione = :data
+      AND p.stato = :stato
+      AND (p.marcata IS NULL OR p.marcata = false)
+      AND p.hourStart < :hourEnd
+      AND p.hourEnd > :hourStart
+""")
+    boolean existsSovrapposizioneSalaRiunioni(
+            @Param("idWorkspace") Long idWorkspace,
+            @Param("data") LocalDate data,
+            @Param("hourStart") LocalTime hourStart,
+            @Param("hourEnd") LocalTime hourEnd,
             @Param("stato") String stato
     );
 }

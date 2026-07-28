@@ -93,26 +93,28 @@
         <section class="panel-card reservation-card">
           <h2>La tua prenotazione</h2>
 
-          <ng-container *ngIf="firstBooking as booking; else noBooking">
-            <div class="reserved-seat">
-              <i class="pi pi-check" aria-hidden="true"></i>
-              <div>
-                <strong>{{ getBookingWorkspaceName(booking) }}</strong>
-                <span>{{ booking.stato || 'Confermata' }}</span>
+          <div *ngIf="myBookings.length; else noBooking" class="booking-list">
+            <article *ngFor="let booking of myBookings" class="booking-item">
+              <div class="reserved-seat">
+                <i class="pi pi-check" aria-hidden="true"></i>
+                <div>
+                  <strong>{{ getBookingWorkspaceName(booking) }}</strong>
+                  <span>{{ booking.stato || 'Confermata' }}</span>
+                </div>
               </div>
-            </div>
 
-            <p><i class="pi pi-calendar" aria-hidden="true"></i> {{ selectedDateLabel }}</p>
-            <p><i class="pi pi-clock" aria-hidden="true"></i> Giornata intera</p>
+              <p><i class="pi pi-calendar" aria-hidden="true"></i> {{ selectedDateLabel }}</p>
+              <p><i class="pi pi-clock" aria-hidden="true"></i> {{ getBookingTimeLabel(booking) }}</p>
 
-            <button
-              type="button"
-              class="cancel-button"
-              [disabled]="isSaving"
-              (click)="annullaPrenotazione(booking.idPrenotazione)">
-              Annulla prenotazione
-            </button>
-          </ng-container>
+              <button
+                type="button"
+                class="cancel-button"
+                [disabled]="isSaving"
+                (click)="annullaPrenotazione(booking.idPrenotazione)">
+                Annulla prenotazione
+              </button>
+            </article>
+          </div>
 
           <ng-template #noBooking>
             <div class="empty-reservation">
@@ -234,6 +236,26 @@
 
       <div class="dialog-hint" *ngIf="!selectedZone.exclusive && !selectedSeat">
         Seleziona un pallino verde sulla mappa per scegliere il posto.
+      </div>
+
+      <div class="meeting-time-panel" *ngIf="isSelectedMeetingRoom">
+        <label>
+          <span>Inizio</span>
+          <input
+            type="time"
+            name="meetingHourStart"
+            [(ngModel)]="meetingHourStart"
+            [disabled]="isSaving" />
+        </label>
+
+        <label>
+          <span>Fine</span>
+          <input
+            type="time"
+            name="meetingHourEnd"
+            [(ngModel)]="meetingHourEnd"
+            [disabled]="isSaving" />
+        </label>
       </div>
 
       <div class="dialog-row">

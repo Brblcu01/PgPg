@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -83,7 +84,7 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
         if(utenteAdmin(user)){
 
             return repository
-                    .trovaPrenotazioniAdmin(data, dataDa, dataA)
+                    .trovaPrenotazioniAdmin(data, dataDa, dataA, PROFILO_USER)
                     .stream()
                     .map(prenotazione -> prenotazioneConverter.toDTO(prenotazione, user))
                     .toList();
@@ -118,6 +119,7 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
                 ));
 
         CeWorkspaceSeat posto = null;
+        boolean salaRiunioni = salaRiunioni(risorsa);
 
         if (Boolean.TRUE.equals(risorsa.getPrenotazioneEsclusiva())) {
             if (richiesta.getIdWorkspaceSeat() != null) {
@@ -141,6 +143,13 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
             if (repository.existsPrenotazioneConfermataPosto(posto.getId(), richiesta.getDataPrenotazione(), STATO_CONFERMATA)) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, "Posto gia prenotato per la data selezionata");
             }
+
+            if (richiesta.getHourStart() != null || richiesta.getHourEnd() != null) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Gli orari possono essere indicati solo per la sala riunioni"
+                );
+            }
         }
 
         if (!utentePuoPrenotare(user, risorsa.getId())) {
@@ -151,18 +160,42 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Prenotazioni bloccate per la data selezionata");
         }
 
-        if (utenteHaGiaUnaPrenotazione(user, richiesta.getDataPrenotazione())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Hai gia una prenotazione per la data selezionata");
-        }
+        if (salaRiunioni) {
+            validaOrariSalaRiunioni(richiesta);
 
-        long prenotazioniConfermate = repository.contaPrenotazioniConfermate(
-                risorsa.getId(),
-                richiesta.getDataPrenotazione(),
-                STATO_CONFERMATA
-        );
+            if (repository.existsSovrapposizioneSalaRiunioni(
+                    risorsa.getId(),
+                    richiesta.getDataPrenotazione(),
+                    richiesta.getHourStart(),
+                    richiesta.getHourEnd(),
+                    STATO_CONFERMATA
+            )) {
+                throw new ResponseStatusException(
+                        HttpStatus.CONFLICT,
+                        "Sala riunioni gia prenotata per l'orario selezionato"
+                );
+            }
+        } else {
+            if (richiesta.getHourStart() != null || richiesta.getHourEnd() != null) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Gli orari possono essere indicati solo per la sala riunioni"
+                );
+            }
 
-        if (!risorsaHaPostiDisponibili(risorsa, prenotazioniConfermate)) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Posti esauriti per la data selezionata");
+            if (utenteHaGiaUnaPrenotazione(user, richiesta.getDataPrenotazione())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Hai gia una prenotazione per la data selezionata");
+            }
+
+            long prenotazioniConfermate = repository.contaPrenotazioniConfermate(
+                    risorsa.getId(),
+                    richiesta.getDataPrenotazione(),
+                    STATO_CONFERMATA
+            );
+
+            if (!risorsaHaPostiDisponibili(risorsa, prenotazioniConfermate)) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Posti esauriti per la data selezionata");
+            }
         }
 
         CeBooking prenotazione = CeBooking.builder()
@@ -170,6 +203,8 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
                 .idWorkspaceSeatFk(posto != null ? posto.getId() : null)
                 .idUtenteFk(user.getId())
                 .dataPrenotazione(richiesta.getDataPrenotazione())
+                .hourStart(richiesta.getHourStart())
+                .hourEnd(richiesta.getHourEnd())
                 .stato(STATO_CONFERMATA)
                 .dataCreazione(LocalDateTime.now())
                 .marcata(false)
@@ -326,6 +361,39 @@ public class PrenotazioneServiceImpl extends BaseGenericRestService<CeBooking, P
     private boolean prenotazioniBloccate(LocalDate data) {
         return data != null
                 && bloccoPrenotazioniRepository.existsBloccoAttivo(data);
+    }
+
+    private boolean salaRiunioni(CeWorkspace risorsa) {
+        return Boolean.TRUE.equals(risorsa.getPrenotazioneEsclusiva())
+                && (contieneTesto(risorsa.getCodice(), "RIUN")
+                || contieneTesto(risorsa.getNome(), "RIUN")
+                || contieneTesto(risorsa.getTipoRisorsa(), "RIUN")
+                || contieneTesto(risorsa.getTipoRisorsa(), "MEETING"));
+    }
+
+    private boolean contieneTesto(String testo, String valoreCercato) {
+        return testo != null
+                && valoreCercato != null
+                && testo.toUpperCase().contains(valoreCercato.toUpperCase());
+    }
+
+    private void validaOrariSalaRiunioni(RichiestaPrenotazioneDTO richiesta) {
+        LocalTime hourStart = richiesta.getHourStart();
+        LocalTime hourEnd = richiesta.getHourEnd();
+
+        if (hourStart == null || hourEnd == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Ora inizio e ora fine sono obbligatorie per la sala riunioni"
+            );
+        }
+
+        if (!hourEnd.isAfter(hourStart)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Ora fine deve essere successiva a ora inizio"
+            );
+        }
     }
 
     private boolean utenteHaGiaUnaPrenotazione(CustomUserPrincipalDTO user, LocalDate data) {

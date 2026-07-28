@@ -16,7 +16,8 @@ import {
   MessageResponse,
   PostoWorkspaceDTO,
   PrenotazioneDTO,
-  PrenotazioniApiService
+  PrenotazioniApiService,
+  RichiestaPrenotazioneDTO
 } from './prenotazioni-api.service';
 import { AuthApiService, UserInfo } from '../../core/auth-api.service';
 import { AppDatePickerComponent } from '../../shared/date-picker/app-date-picker.component';
@@ -99,6 +100,8 @@ export class PrenotazioniComponent implements OnInit {
   selectedDate = this.getStoredSelectedDate();
   selectedZone: BookingZone | null = null;
   selectedSeat: AvailableSeat | null = null;
+  meetingHourStart = '09:00';
+  meetingHourEnd = '10:00';
   showZoneDialog = false;
   isLoading = false;
   isLoadingPosti = false;
@@ -170,19 +173,63 @@ export class PrenotazioniComponent implements OnInit {
       id: 'meeting',
       label: 'Sala Riunioni',
       type: 'meeting',
-      status: 'reserved',
+      status: 'free',
       cssClass: 'zone-meeting',
       exclusive: true,
       description: 'Sala Riunioni'
+    },
+    {
+      id: 'hr-office',
+      label: 'Ufficio HR',
+      type: 'support',
+      status: 'disabled',
+      cssClass: 'zone-hr-office zone-disabled-area',
+      description: 'Ufficio HR'
+    },
+    {
+      id: 'support-office',
+      label: 'Support',
+      type: 'support',
+      status: 'disabled',
+      cssClass: 'zone-support-office zone-disabled-area',
+      description: 'Area support'
+    },
+    {
+      id: 'generic-office-1',
+      label: 'Ufficio',
+      type: 'office',
+      status: 'disabled',
+      cssClass: 'zone-generic-office-1 zone-disabled-area',
+      description: 'Ufficio'
+    },
+    {
+      id: 'generic-office-2',
+      label: 'Ufficio',
+      type: 'office',
+      status: 'disabled',
+      cssClass: 'zone-generic-office-2 zone-disabled-area',
+      description: 'Ufficio'
+    },
+    {
+      id: 'generic-office-3',
+      label: 'Ufficio',
+      type: 'office',
+      status: 'disabled',
+      cssClass: 'zone-generic-office-3 zone-disabled-area',
+      description: 'Ufficio'
+    },
+    {
+      id: 'generic-office-4',
+      label: 'Ufficio',
+      type: 'office',
+      status: 'disabled',
+      cssClass: 'zone-generic-office-4 zone-disabled-area',
+      description: 'Ufficio'
     }
   ];
 
   get selectedDateLabel(): string {
     return this.formatItalianDate(this.selectedDate);
-  }
-
-  get firstBooking(): PrenotazioneDTO | null {
-    return this.myBookings[0] ?? null;
   }
 
   get mapSeatMarkers(): MapSeatMarker[] {
@@ -242,11 +289,23 @@ export class PrenotazioniComponent implements OnInit {
   }
 
   get canReserveSelectedZone(): boolean {
-    if (!this.selectedZone || this.selectedZone.status === 'reserved' || this.isSaving) {
+    if (!this.selectedZone || this.isSaving) {
       return false;
     }
 
+    if (this.selectedZone.status === 'reserved' && !this.isSelectedMeetingRoom) {
+      return false;
+    }
+
+    if (this.isSelectedMeetingRoom) {
+      return Boolean(this.meetingHourStart && this.meetingHourEnd);
+    }
+
     return Boolean(this.selectedZone.exclusive || this.selectedSeat);
+  }
+
+  get isSelectedMeetingRoom(): boolean {
+    return this.selectedZone ? this.isMeetingRoom(this.selectedZone) : false;
   }
 
   get mapTransform(): string {
@@ -416,7 +475,10 @@ export class PrenotazioniComponent implements OnInit {
         this.myBookings = result.miePrenotazioni;
         this.updateZones(result.disponibilita);
         this.updateZonesFromPosti(this.postiPerWorkspace);
-        this.updateExclusiveZonesFromBookings(result.prenotate);
+        this.updateExclusiveZonesFromBookings([
+          ...result.prenotate,
+          ...result.miePrenotazioni
+        ]);
         this.updateMetrics(result.disponibilita, this.postiPerWorkspace);
       });
   }
@@ -441,6 +503,10 @@ export class PrenotazioniComponent implements OnInit {
     }
 
     if (this.selectedZone.exclusive) {
+      if (this.isSelectedMeetingRoom && !this.validMeetingHours()) {
+        return;
+      }
+
       this.createBooking(this.selectedZone.workspaceId);
       return;
     }
@@ -541,6 +607,14 @@ export class PrenotazioniComponent implements OnInit {
       || 'Prenotazione workspace';
   }
 
+  getBookingTimeLabel(prenotazione: PrenotazioneDTO): string {
+    if (!prenotazione.hourStart || !prenotazione.hourEnd) {
+      return 'Giornata intera';
+    }
+
+    return `${this.formatTime(prenotazione.hourStart)} - ${this.formatTime(prenotazione.hourEnd)}`;
+  }
+
   getZoneSeverity(status: BookingZoneStatus): 'success' | 'danger' | 'info' | 'secondary' | 'warn' {
     const severities: Record<BookingZoneStatus, 'success' | 'danger' | 'info' | 'secondary' | 'warn'> = {
       free: 'success',
@@ -557,7 +631,7 @@ export class PrenotazioniComponent implements OnInit {
       free: 'Libero',
       reserved: 'Prenotato',
       selected: 'Selezionato',
-      disabled: 'Privato'
+      disabled: 'Non prenotabile'
     };
 
     return labels[status];
@@ -586,11 +660,13 @@ export class PrenotazioniComponent implements OnInit {
     this.showZoneDialog = false;
     this.changeDetector.detectChanges();
 
-    this.prenotazioniApi.creaPrenotazione({
+    const richiesta: RichiestaPrenotazioneDTO = {
       idWorkspace,
       idWorkspaceSeat,
       dataPrenotazione: this.selectedDate
-    })
+    };
+
+    this.prenotazioniApi.creaPrenotazione(this.withMeetingHours(richiesta))
       .pipe(
         timeout(15000),
         finalize(() => this.isSaving = false)
@@ -603,6 +679,36 @@ export class PrenotazioniComponent implements OnInit {
         },
         error: error => this.handleActionError(error, 'Prenotazione inviata. Aggiorno lo stato delle prenotazioni.')
       });
+  }
+
+  private withMeetingHours(richiesta: RichiestaPrenotazioneDTO): RichiestaPrenotazioneDTO {
+    if (!this.isSelectedMeetingRoom) {
+      return richiesta;
+    }
+
+    return {
+      ...richiesta,
+      hourStart: this.meetingHourStart,
+      hourEnd: this.meetingHourEnd
+    };
+  }
+
+  private validMeetingHours(): boolean {
+    if (!this.meetingHourStart || !this.meetingHourEnd) {
+      this.showError('Indica ora inizio e ora fine per prenotare la sala riunioni.');
+      return false;
+    }
+
+    if (this.meetingHourEnd <= this.meetingHourStart) {
+      this.showError('Ora fine deve essere successiva a ora inizio.');
+      return false;
+    }
+
+    return true;
+  }
+
+  private formatTime(value: string): string {
+    return value.slice(0, 5);
   }
 
   private caricaPostiWorkspace(clearFeedback = true): void {
@@ -686,7 +792,7 @@ export class PrenotazioniComponent implements OnInit {
         workspaceId: this.getWorkspaceId(workspace) ?? zone.workspaceId,
         seats: workspace.capienza ?? zone.seats,
         exclusive: workspace.prenotazioneEsclusiva ?? zone.exclusive,
-        status: postiDisponibili > 0 ? 'free' : 'reserved'
+        status: this.isMeetingRoom(zone) || postiDisponibili > 0 ? 'free' : 'reserved'
       };
     });
   }
@@ -710,6 +816,19 @@ export class PrenotazioniComponent implements OnInit {
 
   private updateExclusiveZonesFromBookings(prenotate: PrenotazioneDTO[]): void {
     this.zones = this.zones.map(zone => {
+      if (this.isMeetingRoom(zone)) {
+        const meetingBooking = prenotate.find(prenotazione => {
+          const bookingName = this.getBookingWorkspaceName(prenotazione).toLowerCase();
+          return bookingName.includes('riunioni');
+        });
+
+        return {
+          ...zone,
+          workspaceId: meetingBooking ? this.getBookingWorkspaceId(meetingBooking) ?? zone.workspaceId : zone.workspaceId,
+          status: 'free'
+        };
+      }
+
       if (!zone.exclusive) {
         return zone;
       }
@@ -723,6 +842,11 @@ export class PrenotazioniComponent implements OnInit {
 
       return isBooked ? { ...zone, status: 'reserved' } : zone;
     });
+  }
+
+  private isMeetingRoom(zone: BookingZone): boolean {
+    const text = `${zone.id} ${zone.label} ${zone.description ?? ''}`.toLowerCase();
+    return zone.type === 'meeting' || text.includes('riunioni');
   }
 
   private updateMetrics(

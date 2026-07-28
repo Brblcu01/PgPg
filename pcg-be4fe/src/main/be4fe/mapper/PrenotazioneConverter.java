@@ -28,6 +28,8 @@ public class PrenotazioneConverter extends BaseGenericConverter<CeBooking, Preno
                 .idPostazione(prenotazione.getPostazioneLavoro().getId())
                 .postazioneName(prenotazione.getPostazioneLavoro().getNome())
                 .dataPrenotazione(prenotazione.getDataPrenotazione())
+                .hourStart(prenotazione.getHourStart())
+                .hourEnd(prenotazione.getHourEnd())
                 .stato(prenotazione.getStato())
                 .dataCreazione(prenotazione.getDataCreazione())
                 .prenotazioneUtenteCorrente(prenotazioneUtenteCorrente(prenotazione, user))
@@ -41,6 +43,8 @@ public class PrenotazioneConverter extends BaseGenericConverter<CeBooking, Preno
         entity.setIdRisorsaPrenotabileFk(dto.getIdWorkspace());
         entity.setIdUtenteFk(dto.getIdUtente());
         entity.setDataPrenotazione(dto.getDataPrenotazione());
+        entity.setHourStart(dto.getHourStart());
+        entity.setHourEnd(dto.getHourEnd());
         entity.setStato(dto.getStato());
         entity.setDataCreazione(dto.getDataCreazione());
         return entity;
@@ -51,6 +55,8 @@ public class PrenotazioneConverter extends BaseGenericConverter<CeBooking, Preno
         target.setIdRisorsaPrenotabileFk(source.getIdWorkspace());
         target.setIdUtenteFk(source.getIdUtente());
         target.setDataPrenotazione(source.getDataPrenotazione());
+        target.setHourStart(source.getHourStart());
+        target.setHourEnd(source.getHourEnd());
         target.setStato(source.getStato());
         target.setDataCreazione(source.getDataCreazione());
         return target;

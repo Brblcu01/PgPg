@@ -35,6 +35,8 @@ export interface PrenotazioneDTO {
   idUtente?: number;
   utenteName?: string;
   dataPrenotazione: string;
+  hourStart?: string;
+  hourEnd?: string;
   stato?: string;
   dataCreazione?: string;
   prenotazioneUtenteCorrente?: boolean;
@@ -53,6 +55,9 @@ export interface RichiestaPrenotazioneDTO {
   idWorkspace: number;
   dataPrenotazione: string;
   idWorkspaceSeat?: number;
+  hourStart?: string;
+  hourEnd?: string;
+  end?: string;
 }
 
 export interface RichiestaBloccoPrenotazioniDTO {

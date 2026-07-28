@@ -16,6 +16,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "CE_Booking")
@@ -38,6 +39,12 @@ public class CeBooking extends BaseEntity {
 
     @Column(name = "BookingDate", nullable = false)
     private LocalDate dataPrenotazione;
+
+    @Column(name = "HourStart")
+    private LocalTime hourStart;
+
+    @Column(name = "HourEnd")
+    private LocalTime hourEnd;
 
     @Column(name = "Status", nullable = false, length = 20)
     private String stato;

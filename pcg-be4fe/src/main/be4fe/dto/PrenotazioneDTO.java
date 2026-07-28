@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -26,6 +27,8 @@ public class PrenotazioneDTO extends BaseDTO {
     private Long idPostazione;
     private String postazioneName;
     private LocalDate dataPrenotazione;
+    private LocalTime hourStart;
+    private LocalTime hourEnd;
     private String stato;
     private LocalDateTime dataCreazione;
     private Boolean prenotazioneUtenteCorrente;
